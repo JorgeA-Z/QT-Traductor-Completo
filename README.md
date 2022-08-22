@@ -8,3 +8,4 @@ El programa está en fase de despliege con las librerías básicas contenidas en
 
 La aplicación inicialmente fué desarrollada con Python pero, después de contemplar las limitaciónes en cuanto a la arquitectura del mismo, siendo que python es un lenguaje interpretado y no compilado, se decidió que el desarrollo se realizaría con C++ Utilizando la librería gráfica QT.
 
+![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/Interfaz.png)
