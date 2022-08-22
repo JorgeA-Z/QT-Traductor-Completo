@@ -1,5 +1,5 @@
 # QT-Traductor-Morfologico
-Traductor morfológico con interfaz gráfica desarrollada en QT  
+Traductor morfológico con interfaz gráfica desarrollada en QT.  
 
 # Instalación
 El programa está en fase de despliege con las librerías básicas contenidas en QT, mediante la app para desplegar windeployqt.exe, por lo que no se requiere configuración adicional más que hacer la descarga del archivo ejecutable.
