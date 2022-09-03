@@ -16,4 +16,4 @@ La interfaz contiene una caja de texto en donde se pueden listar los tokens a an
 
 # Maquina de estados utilizada para el desarrollo de la aplicación
 
-![alt text](https://github.com/JorgeA-Z/QT-Traductor-Morfologico/blob/main/Codigo%20fuente/Imagenes/M%C3%A1quina%20de%20estados.jpeg)
+![alt text](https://github.com/JorgeA-Z/QT-Traductor-Completo/blob/main/Modulo%201/Codigo%20fuente/Imagenes/Máquina%20de%20estados.jpeg)
