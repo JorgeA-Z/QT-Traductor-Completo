@@ -12,7 +12,7 @@ La aplicación inicialmente fué desarrollada con Python pero, después de conte
 
 La interfaz contiene una caja de texto en donde se pueden listar los tokens a analizar, comprobando si pertenecen a la máquina de estados planteada para el analizador léxico.
 
-![alt text](https://github.com/JorgeA-Z/QT-Traductor-Morfologico/blob/main/Codigo%20fuente/Imagenes/Interfaz.png)
+![alt text](https://github.com/JorgeA-Z/QT-Traductor-Completo/blob/main/Modulo%201/Codigo%20fuente/Imagenes/Interfaz.png)
 
 # Maquina de estados utilizada para el desarrollo de la aplicación
 
