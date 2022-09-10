@@ -23,6 +23,8 @@ set(PROJECT_SOURCES
         mainwindow.ui
         automata.h
         automata.cpp
+        pila.h
+        pila.cpp
         ${TS_FILES}
 )
 

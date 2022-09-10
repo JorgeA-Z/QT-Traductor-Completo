@@ -1,4 +1,5 @@
 #include "automata.h"
+#include <iostream>
 using namespace std;
 
 Automata::Automata()
@@ -113,7 +114,16 @@ int Automata::Analizar(std::string&palabra)
                 case 0:
                 {
                     contador++;
-                    return 3;
+                    posicion = 0;
+                    if(EstaDentroChar(abecedario, palabra[contador], tamNumeros))
+                    {
+                        posicion = 0;
+                    }
+                    else if(palabra[contador] == '.')
+                    {
+                        posicion = 9;
+                    }
+                    break;
                 }
                 //Numero
                 case 1:
@@ -125,6 +135,10 @@ int Automata::Analizar(std::string&palabra)
                     else if(palabra[contador] == '.')
                     {
                         posicion = 3;
+                    }
+                    else if(EstaDentroChar(abecedario, palabra[contador], tamNumeros))
+                    {
+                        posicion = 9;
                     }
                     contador++;
                     break;
@@ -191,11 +205,18 @@ int Automata::Analizar(std::string&palabra)
                 }
             }
         }
-        if(posicion == 1)
+        switch(posicion)
+        {
+            case 0:
             {
+                return 3;
+            }
+            case 1:
+            {
+
                 return 6;
             }
-            else if(posicion == 2)
+            case 2:
             {
                 if(palabra.size() < 2)
                 {
@@ -203,23 +224,24 @@ int Automata::Analizar(std::string&palabra)
                 }
                 return 10;
             }
-            else if(posicion == 3)
+            case 3:
             {
                 return 5;
             }
-            else if(posicion == 5)
+            case 5:
             {
                 return 4;
             }
-            else if(posicion == 9)
+            case 9:
             {
                 return 10;
             }
-            else
+            default:
             {
-                return 9;
+                return 6;
+                break;
             }
-            return 0;
+        }
 };
 int Automata::FastStep(string& palabra, string lista1[], string lista2[], string lista3[])
 {

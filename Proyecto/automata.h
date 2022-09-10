@@ -49,8 +49,8 @@ private:
         ',',';','[',']','{','}','$','&','>','<'};
 
     std::string resultados[11] = {
-        "Reservadas","Operadores Aritmeticos","Operadores Logicos","String",
-        "Hexadecimal","Float","Int","Arreglo","Char", "Simbolo", "No Identificado"};
+        "Reservadas","Operadores Aritmeticos","Operadores Logicos","Identificador",
+        "Hexadecimal","Float","Int","Arreglo","Identificador", "Simbolo", "No Identificado"};
 public:
     Automata();
     Automata(std::string&);
@@ -65,8 +65,6 @@ public:
     int Analizar(std::string&);
     int FastStep(std::string&, std::string lista1[], std::string lista2[], std::string lista3[]);
     std::string identificar(std::string&);
-
-
 
 };
 
