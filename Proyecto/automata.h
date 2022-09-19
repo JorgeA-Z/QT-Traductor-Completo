@@ -51,6 +51,13 @@ private:
     std::string resultados[11] = {
         "Reservadas","Operadores Aritmeticos","Operadores Logicos","Identificador",
         "Hexadecimal","Float","Int","Arreglo","Identificador", "Simbolo", "No Identificado"};
+
+    std::string Tipos[8] = {
+        "double","int","long","char","const","float","short","unsigned"};
+
+    std::string Relacionales[3] = {
+        "<=", ">=", "!=" };
+
 public:
     Automata();
     Automata(std::string&);
@@ -62,6 +69,7 @@ public:
     bool EstaDentro(std::string x[], std::string y, int tam);
     bool EstaDentroChar(char x[], char y, int tam);
 
+    int Casos(std::string, int obtenido);
     int Analizar(std::string&);
     int FastStep(std::string&, std::string lista1[], std::string lista2[], std::string lista3[]);
     std::string identificar(std::string&);

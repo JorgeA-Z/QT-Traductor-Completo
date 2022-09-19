@@ -1,23 +1,24 @@
 #ifndef PILA_H
 #define PILA_H
 #include <string>
+#include "ep.h"
 class Pila
 {
 private:
     class Nodo
     {
     private:
-        std::string val;
+        EP *val;
         Nodo *next;
 
     public:
         Nodo();
-        Nodo(std::string s);
+        Nodo(EP*s);
         ~Nodo();
         void setReferencia(Nodo *n);
-        void setVal(std::string s);
+        void setVal(EP *s);
 
-        std::string getVal();
+        EP* getVal();
         Nodo *getReferencia();
     };
     Nodo *ancla;
@@ -44,9 +45,9 @@ public:
     Pila(const Pila &);
     ~Pila();
     bool vacia() const;
-    void push(const std::string &);
-    std::string pop();
-    std::string Top() const;
+    void push(EP *);
+    EP *pop();
+    EP* Top() const;
 
     Pila &operator=(const Pila &);
 };

@@ -33,13 +33,114 @@ std::string  Automata::identificar(string& palabras)
     if(obtenido == -1)
     {
         obtenido = Analizar(palabras);
-        return resultados[obtenido];
+        int casos = Casos(palabras, obtenido);
+        return resultados[obtenido] + " " +to_string(casos);
     }
     else
     {
-        return resultados[obtenido];
+        int casos = Casos(palabras, obtenido);
+        return resultados[obtenido] + " " +to_string(casos);
     }
 };
+int Automata::Casos(string palabras, int obtenido)
+{
+    if(resultados[obtenido] == "Identificador")
+    {
+        return 0;
+    }
+    if(resultados[obtenido] == "int")
+    {
+        return 1;
+    }
+    if(resultados[obtenido] == "float")
+    {
+        return 2;
+    }
+    //Cadena es return 3
+    if(resultados[obtenido] == "Reservadas")
+    {
+        if(EstaDentro(Tipos, palabras, 8))
+        {
+            return 4;
+        }
+    }
+    if(palabras == "+")
+    {
+        return 5;
+    }
+    if(palabras == "*")
+    {
+        return 6;
+    }
+    if(EstaDentro(Relacionales, palabras, 3))
+    {
+        return 7;
+    }
+    if(palabras == "||")
+    {
+        return 8;
+    }
+    if(palabras == "&&")
+    {
+        return 9;
+    }
+    if(palabras == "!")
+    {
+        return 10;
+    }
+    if(palabras == "==")
+    {
+        return 11;
+    }
+    if(palabras == ";")
+    {
+        return 12;
+    }
+    if(palabras == ",")
+    {
+        return 13;
+    }
+    if(palabras == "(")
+    {
+        return 14;
+    }
+    if(palabras == ")")
+    {
+        return 15;
+    }
+    if(palabras == "{")
+    {
+        return 16;
+    }
+    if(palabras == "}")
+    {
+        return 17;
+    }
+    if(palabras == "=")
+    {
+        return 18;
+    }
+    if(palabras == "if")
+    {
+        return 19;
+    }
+    if(palabras == "while")
+    {
+        return 20;
+    }
+    if(palabras == "return")
+    {
+        return 21;
+    }
+    if(palabras == "else")
+    {
+        return 22;
+    }
+    if(palabras == "$")
+    {
+        return 23;
+    }
+}
 bool Automata::EstaDentro(string palabras[], string palabra,  int tam)
 {
     int i = 0;

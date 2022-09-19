@@ -25,6 +25,14 @@ set(PROJECT_SOURCES
         automata.cpp
         pila.h
         pila.cpp
+        ep.cpp
+        ep.h
+        nt.h
+        nt.cpp
+        t.h
+        t.cpp
+        e.h
+        e.cpp
         ${TS_FILES}
 )
 

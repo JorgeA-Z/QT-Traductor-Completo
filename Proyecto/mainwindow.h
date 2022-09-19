@@ -15,6 +15,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
 
     ~MainWindow();
+    void pila();
 private slots:
     void Lista();
 private:

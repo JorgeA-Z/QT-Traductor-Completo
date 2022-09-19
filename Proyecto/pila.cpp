@@ -7,7 +7,7 @@ Pila::Nodo::Nodo()
     next = nullptr;
 
 };
-Pila::Nodo::Nodo(string s) {
+Pila::Nodo::Nodo(EP *s) {
     val = s;
     next = nullptr;
 
@@ -20,12 +20,12 @@ void Pila::Nodo::setReferencia(Nodo *n)
     next = n;
 
 };
-void Pila::Nodo::setVal(string s)
+void Pila::Nodo::setVal(EP *s)
 {
     val = s;
 };
 
-string Pila::Nodo::getVal()
+EP* Pila::Nodo::getVal()
 {
     return val;
 };
@@ -93,7 +93,7 @@ bool Pila::vacia() const
 {
     return ancla == nullptr;
 };
-void Pila::push(const string &s)
+void Pila::push(EP *s)
 {
     Nodo *aux = new Nodo(s);
 
@@ -106,14 +106,14 @@ void Pila::push(const string &s)
 
     ancla = aux;
 };
-string Pila::pop()
+EP* Pila::pop()
 {
     if (ancla == nullptr)
     {
         throw PilaExeption("Insuficiencia de datos, Pop");
     }
 
-    string result = ancla->getVal();
+    EP* result = ancla->getVal();
 
     Nodo *aux = ancla;
 
@@ -123,7 +123,7 @@ string Pila::pop()
 
     return result;
 };
-string Pila::Top() const {
+EP* Pila::Top() const {
 
     if (ancla == nullptr)
     {
