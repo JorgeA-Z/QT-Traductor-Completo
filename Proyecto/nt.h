@@ -21,8 +21,13 @@ protected:
         Nodo *getReferencia();
     };
     Nodo *ancla;
+    int id;
+
 public:
     NT();
+    NT(const int&, const std::string &);
+    void setId(const int&);
+    int getId() const;
 };
 
 #endif // NT_H

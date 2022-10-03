@@ -37,7 +37,24 @@ typename NT::Nodo* NT::Nodo::getReferencia()
 {
     return next;
 };
+
 NT::NT()
 {
 
 }
+NT::NT(const int& i, const std::string &v)
+{
+    id = i;
+    val = v;
+};
+
+void NT::setId(const int& i)
+{
+    id = i;
+}
+
+int NT::getId() const
+{
+    return id;
+
+} 

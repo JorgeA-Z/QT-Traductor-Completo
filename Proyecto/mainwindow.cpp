@@ -1,13 +1,10 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include "automata.h"
 #include <string>
 #include <iostream>
-#include "pila.h"
-#include "ep.h"
-#include "t.h"
-#include "e.h"
-#include "nt.h"
+#include <QDebug>
+using namespace std;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -22,108 +19,14 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-void MainWindow::pila()
+void MainWindow::RunPila(Pila& pila, std::string& programa)
 {
-    int LR[95][46] = {0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3,1,2,3,4,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3,0,7,3,4,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,-5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,-6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,-8,10,11,0,0,0,0,0,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,-11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      -7,0,0,0,-7,0,0,0,0,0,0,0,0,0,0,0,0,-7,0,-7,-7,-7,0,-7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,-8,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,-9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,22,0,-13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,-10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      27,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,-16,0,28,29,30,0,0,0,0,0,25,0,0,0,0,0,23,24,0,26,0,0,0,0,0,0,31,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,33,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      27,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,-16,0,28,29,30,0,0,0,0,0,25,0,0,0,0,0,34,24,0,26,0,0,0,0,0,0,31,0,0,
-                      -18,0,0,0,-18,0,0,0,0,0,0,0,0,0,0,0,0,-18,0,-18,-18,-18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      -19,0,0,0,-19,0,0,0,0,0,0,0,0,0,0,0,0,-19,0,-19,-19,-19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,0,0,0,35,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,0,37,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,0,38,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      46,47,48,49,0,42,0,0,0,0,43,0,-30,0,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,39,0,0,44,45,0,40,
-                      0,0,0,0,0,0,0,0,0,0,0,0,50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      51,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,-15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      46,47,48,49,0,42,0,0,0,0,43,0,0,0,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,44,45,0,52,
-                      46,47,48,49,0,42,0,0,0,0,43,0,0,0,41,-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,53,0,44,45,0,54,
-                      46,47,48,49,0,42,0,0,0,0,43,0,0,0,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,44,45,0,55,
-                      46,47,48,49,0,42,0,0,0,0,43,0,0,0,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,44,45,0,56,
-                      0,0,0,0,0,0,0,0,0,0,0,0,57,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,59,58,60,63,62,0,61,-31,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      46,47,48,49,0,42,0,0,0,0,43,0,0,0,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,44,45,0,64,
-                      46,47,48,49,0,42,0,0,0,0,43,0,0,0,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,44,45,0,65,
-                      46,47,48,49,0,42,0,0,0,0,43,0,0,0,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,44,45,0,66,
-                      0,0,0,0,0,-53,-53,-53,-53,-53,0,-53,-53,-53,0,-53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,-36,-36,-36,-36,-36,0,-36,-36,-36,0,-36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,-37,-37,-37,-37,-37,0,-37,-37,-37,36,-37,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,-38,-38,-38,-38,-38,0,-38,-38,-38,0,-38,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,-39,-39,-39,-39,-39,0,-39,-39,-39,0,-39,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,-40,-40,-40,-40,-40,0,-40,-40,-40,0,-40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      -26,0,0,0,-26,0,0,0,0,0,0,0,0,0,0,0,0,-26,0,-26,-26,-26,-26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,22,0,-13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,67,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,59,58,60,63,62,0,61,68,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,69,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,59,58,60,63,62,0,61,0,71,0,-34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,70,0,0,0,0,
-                      0,0,0,0,0,59,58,60,63,62,0,61,0,0,0,72,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,59,58,60,63,62,0,61,0,0,0,73,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      -25,0,0,0,-25,0,0,0,0,0,0,0,0,0,0,0,0,-25,0,-25,-25,-25,-25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      46,47,48,49,0,42,0,0,0,0,43,0,0,0,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,44,45,0,74,
-                      46,47,48,49,0,42,0,0,0,0,43,0,0,0,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,44,45,0,75,
-                      46,47,48,49,0,42,0,0,0,0,43,0,0,0,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,44,45,0,76,
-                      46,47,48,49,0,42,0,0,0,0,43,0,0,0,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,44,45,0,77,
-                      46,47,48,49,0,42,0,0,0,0,43,0,0,0,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,44,45,0,78,
-                      46,47,48,49,0,42,0,0,0,0,43,0,0,0,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,44,45,0,79,
-                      0,0,0,0,0,59,58,60,63,62,0,61,0,0,0,80,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,-45,-45,-45,-45,-45,0,-45,-45,-45,0,-45,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,-46,-46,-46,-46,-46,0,-46,-46,-46,0,-46,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      -22,0,0,0,-22,0,0,0,0,0,0,0,0,0,0,0,0,-22,0,-22,-22,-22,-22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,-41,-41,-41,-41,-41,0,-41,-41,-41,0,-41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-33,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      46,47,48,49,0,42,0,0,0,0,43,0,0,0,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,44,45,0,81,
-                      27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,85,0,0,28,29,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,83,0,84,0,0,0,0,31,82,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,86,0,0,0,0,0,0,0,
-                      0,0,0,0,0,-47,-47,-47,-47,-47,0,-47,-47,-47,0,-47,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,-48,58,-48,-48,-48,0,-48,-48,-48,0,-48,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,59,58,-49,-49,-49,0,-49,-49,-49,0,-49,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,59,58,60,-50,-50,0,-50,-50,-50,0,-50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,59,58,60,-51,-51,0,61,-51,-51,0,-51,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,59,58,60,-52,62,0,61,-52,-52,0,-52,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,-44,-44,-44,-44,-44,0,-44,-44,-44,0,-44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,59,58,60,63,62,0,61,0,71,0,-34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,87,0,0,0,0,
-                      -27,0,0,0,-27,0,0,0,0,0,0,0,0,0,0,0,0,-27,0,-27,-27,-27,89,0,0,0,0,0,0,0,0,0,0,0,0,0,0,88,0,0,0,0,0,0,0,0,
-                      -42,0,0,0,-42,0,0,0,0,0,0,0,0,0,0,0,0,-42,0,-42,-42,-42,-42,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      -43,0,0,0,-43,0,0,0,0,0,0,0,0,0,0,0,0,-43,0,-43,-43,-43,-43,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-20,0,28,29,30,0,0,0,0,0,0,0,0,0,0,0,0,0,90,91,0,0,0,0,0,0,31,0,0,
-                      -24,0,0,0,-24,0,0,0,0,0,0,0,0,0,0,0,0,-24,0,-24,-24,-24,-24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-35,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      -23,0,0,0,-23,0,0,0,0,0,0,0,0,0,0,0,0,-23,0,-23,-23,-23,-23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,85,0,0,28,29,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,83,0,84,0,0,0,0,31,92,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,93,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-20,0,28,29,30,0,0,0,0,0,0,0,0,0,0,0,0,0,94,91,0,0,0,0,0,0,31,0,0,
-                      -28,0,0,0,-28,0,0,0,0,0,0,0,0,0,0,0,0,-28,0,-28,-28,-28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      -29,0,0,0,-29,0,0,0,0,0,0,0,0,0,0,0,0,-29,0,-29,-29,-29,-29,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-                      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
-    Pila pila;
+    std::cout << programa << std::endl;
+  
     EP* elemento;
-    std::string valor;
 
+    int fila, columna;
     elemento = new T("$");
 
     pila.push(elemento);
@@ -133,11 +36,643 @@ void MainWindow::pila()
     pila.push(elemento);
 
 
+    //El numero que está en el tope de la fila + el número del identificador
+    //int|Reservadas|4 main|Identificador|0 (|Simbolo|14 )|Simbolo|15 {|Simbolo|16 }|Simbolo|17
+
+    int i = 0, j, control, accion, t, p;
+    char c;
+    std::string data, tipo, token;
+    bool llave = false, parcing = true;
+    while (parcing)
+    {
+
+        c = programa[i];
+
+        switch(c)
+        {
+            case ' ':
+                //data = int|Reservadas|4
+                j = 0;
+                control = 0;
+                llave = false;
+                while(j < data.length())
+                {
+
+                    if(control == 1 && llave == false)
+                    {
+                        llave = true;
+                        token = data.substr(0, j - 1);
+
+                    }
+                    if(control == 2)
+                    {
+                        tipo = data.substr(j, data.length() - j + 1);
+                        break;
+                    }
+                    if(data[j] == '|')
+                    {
+                        control++;
+                    }
+                    j++;
+                }
+                //Aplicar el algoritmo
+                fila = stoi(pila.Top()->get_val());
+                
+                columna = stoi(tipo);
+                
+                
+                accion = LR[fila][columna];
+
+                std::cout << fila << " " << columna << " " << accion <<std::endl;
+
+                if(accion < 0)
+                {
+                    switch(accion)
+                    {
+                        case -1:
+
+                        std::cout << "Analisis completado"  <<std::endl;
+
+                        parcing = false;
+
+                        i--;
+
+                        break;
+
+                        
+                        case -2:
+                        //R1
+
+                        PopPila(1, pila);
+
+                        fila = stoi(pila.Top()->get_val());
+
+                        elemento = new T("<programa>");
+
+                        pila.push(elemento);
+
+                        accion = LR[fila][24];
+
+                        elemento = new T(to_string(accion));
+
+                        pila.push(elemento);
+                        i--;
+                        
+                        break;
+                        
+                        case -3:
+                        //R2
+                        PopPila(0, pila);
+
+                        fila = stoi(pila.Top()->get_val());
+
+                        elemento = new T("<Definiciones>");
+
+                        pila.push(elemento);
+
+                        accion = LR[fila][25];
+
+                        elemento = new T(to_string(accion));
+
+                        pila.push(elemento);
+
+                        i--;
+                        break;
+
+                        case -4:
+                        //R3
+                        PopPila(2, pila);
+
+                        fila = stoi(pila.Top()->get_val());
+
+                        elemento = new T("<Definiciones>");
+
+                        pila.push(elemento);
+
+                        accion = LR[fila][25];
+
+                        elemento = new T(to_string(accion));
+
+                        pila.push(elemento);
+                        i--;
+
+                        break;
+
+                        case -5:
+                        //R4
+                        PopPila(1, pila);
+
+                        fila = stoi(pila.Top()->get_val());
+
+                        elemento = new T("<Definicion>");
+
+                        pila.push(elemento);
+
+                        accion = LR[fila][26];
+
+                        elemento = new T(to_string(accion));
+
+                        pila.push(elemento);
+
+                        std::cout << token << std::endl;
+
+                        i--;
+                        break;
+
+                        case -6:
+                        //R5
+
+                        PopPila(1, pila);
+
+                        fila = stoi(pila.Top()->get_val());
+
+                        elemento = new T("<Definicion>");
+
+                        pila.push(elemento);
+
+                        accion = LR[fila][26];
+
+                        elemento = new T(to_string(accion));
+
+                        pila.push(elemento);
+
+                        i--;
+                        break;
+
+                        case -7:
+                        //R6
+                        PopPila(4, pila);
+
+                        fila = stoi(pila.Top()->get_val());
+
+                        elemento = new T("<DefVar>");
+
+                        pila.push(elemento);
+
+                        accion = LR[fila][27];
+
+                        elemento = new T(to_string(accion));
+
+                        pila.push(elemento);
+
+                        std::cout << token << std::endl;
+
+                        i--;
+
+                        break;
+                        
+                        case -8:
+                        //R7
+
+                        PopPila(0, pila);
+
+                        fila = stoi(pila.Top()->get_val());
+
+                        elemento = new T("<ListaVar>");
+
+                        pila.push(elemento);
+
+                        accion = LR[fila][28];
+
+                        elemento = new T(to_string(accion));
+
+                        pila.push(elemento);
+
+                        std::cout << token << std::endl;
+                        i--;
+
+
+
+                        break;
+                        
+                        case -9:
+                        //R8
+
+                        i--;
+                        break;
+                        
+                        case -10:
+                        //R9
+                        PopPila(6, pila);
+
+                        fila = stoi(pila.Top()->get_val());
+
+                        elemento = new T("<DefFunc>");
+
+                        pila.push(elemento);
+
+                        accion = LR[fila][29];
+
+                        elemento = new T(to_string(accion));
+
+                        pila.push(elemento);
+                        i--;
+
+                        break;
+                        
+                        case -11:
+                        //R10
+
+                        PopPila(0, pila);
+
+                        fila = stoi(pila.Top()->get_val());
+
+                        elemento = new T("<Parametros>");
+
+                        pila.push(elemento);
+
+                        accion = LR[fila][30];
+
+                        elemento = new T(to_string(accion));
+
+                        pila.push(elemento);
+                        i--;
+
+                        break;
+                        
+                        case -12:
+                        //R11
+                        i--;
+
+                        break;
+                        
+                        case -13:
+                        //R12
+                        i--;
+
+                        break;
+                        
+                        case -14:
+                        //R13
+                        i--;
+
+                        break;
+                        
+                        case -15:
+                        //R14
+
+                        PopPila(3, pila);
+
+                        fila = stoi(pila.Top()->get_val());
+
+                        elemento = new T("<BloqFunc>");
+
+                        pila.push(elemento);
+
+                        accion = LR[fila][32];
+
+                        elemento = new T(to_string(accion));
+
+                        pila.push(elemento);
+
+                        i--;
+
+                        break;
+                        
+                        case -16:
+                        //R15
+                        PopPila(0, pila);
+
+                        fila = stoi(pila.Top()->get_val());
+
+                        elemento = new T("<DefLocales>");
+
+                        pila.push(elemento);
+
+                        accion = LR[fila][33];
+
+                        elemento = new T(to_string(accion));
+
+                        pila.push(elemento);
+
+                        i--;
+
+                        break;
+
+                        
+                        case -17:
+                        //R16
+                        PopPila(2, pila);
+
+                        fila = stoi(pila.Top()->get_val());
+
+                        elemento = new T("<DefLocales>");
+
+                        pila.push(elemento);
+
+                        accion = LR[fila][33];
+
+                        elemento = new T(to_string(accion));
+
+                        pila.push(elemento);
+                        i--;
+
+                        break;
+
+                        
+                        case -18:
+                        //R17
+                        PopPila(1, pila);
+
+                        fila = stoi(pila.Top()->get_val());
+
+                        elemento = new T("<DefLocal>");
+
+                        pila.push(elemento);
+
+                        accion = LR[fila][34];
+
+                        elemento = new T(to_string(accion));
+
+                        pila.push(elemento);
+
+                        i--;
+
+                        break;
+
+
+                        
+                        case -19:
+                        //R18
+                        i--;
+
+                        break;
+
+                        
+                        case -20:
+                        //R19
+
+                        i--;
+                        break;
+
+                        
+                        case -21:
+                        //R20
+                        i--;
+
+                        break;
+
+                        
+                        case -22:
+                        //R21
+                        i--;
+
+                        break;
+
+                        case -23:
+                        //R22
+                        i--;
+
+                        break;
+                        
+                        case -24:
+                        //R23
+                        i--;
+
+                        break;
+
+                        case -25:
+                        //R24
+                        i--;
+
+                        break;
+
+                        case -26:
+                        //R25
+                        i--;
+
+                        break;
+
+                        case -27:
+                        //R26
+                        i--;
+
+                        break;
+
+                        case -28:
+                        //R27
+                        i--;
+
+                        break;
+
+                        case -29:
+                        //R28
+                        i--;
+
+                        break;
+
+                        case -30:
+                        //R29
+                        i--;
+
+                        break;
+
+                        case -31:
+                        //R30
+                        i--;
+
+                        break;
+                        
+                        case -32:
+                        //R31
+                        i--;
+
+                        break;
+
+                        case -33:
+                        //R32
+                        i--;
+
+                        break;
+
+                        case -34:
+                        //R33
+                        i--;
+
+                        break;
+
+                        case -35:
+                        //R34
+                        i--;
+
+                        break;
+
+                        case -36:
+                        //R35
+                        i--;
+
+                        break;
+
+                        case -37:
+                        //R36
+                        
+                        i--;
+
+                        break;
+
+                        case -38:
+                        //R37
+                        i--;
+
+                        break;
+
+                        case -39:
+                        //R38
+                        i--;
+
+                        break;
+
+                        case -40:
+                        //R39
+                        i--;
+
+                        break;
+                        
+                        case -41:
+                        //R40
+                        i--;
+
+                        break;
+
+                        case -42:
+                        //R41
+                        i--;
+
+                        break;
+
+                        case -43:
+                        //R42
+                        i--;
+
+                        break;
+
+                        case -44:
+                        //R43
+                        i--;
+
+                        break;
+
+                        case -45:
+                        //R44
+                        i--;
+
+                        break;
+
+                        case -46:
+                        //R45
+                        i--;
+
+                        break;
+
+                        case -47:
+                        //R46
+
+                        i--;
+                        break;
+
+                        case -48:
+                        //R47
+                        i--;
+
+                        break;
+
+                        case -49:
+                        //R48
+
+                        i--;
+                        break;
+                        
+                        case -50:
+                        //R49
+                        i--;
+
+                        break;
+
+                        case -51:
+                        //R50
+                        i--;
+                        break;
+
+                        case -52:
+                        //R51
+                        i--;
+                        break;
+
+                        case -53:
+                        //R52
+                        i--;
+                        break;
+
+                    }
+
+
+                }else if ( accion == 0)
+                {
+                    std::cout << "Error sintactico" <<std::endl;
+                    parcing = false;
+
+                }else
+                {
+
+                    elemento = new T(token);
+                    
+                    pila.push(elemento);
+                    
+                    elemento = new T(to_string(accion));
+                    
+                    pila.push(elemento);
+
+                    std::cout << fila << " " << columna << " " << accion <<std::endl;
+
+                }
+
+                data.clear();
+
+            default:
+                data +=c;
+
+        }
+
+
+        i++;
+    } 
+
+    
+/*
+
+    std::string valor;
+
+*/
 
 };
+void MainWindow::PopPila(const int&tokens, Pila& pila)
+{
+    // T = 0 * 2
+    //T = 0
+
+
+    int PopTokens, i = 0;
+
+    PopTokens = tokens * 2;
+
+    while(i < PopTokens)
+    {
+        pila.pop();
+
+
+        i++;
+    }
+
+    std::cout << "Se ha popeado: " << i << "Tokens a popear: " << PopTokens << std::endl;
+
+};
+
 void MainWindow::Lista()
 {
-    pila();
+    Pila pila;
+
+    
+    std::string programa;
 
     QString texto = ui->textEdit->toPlainText();
     int i = 0;
@@ -166,12 +701,15 @@ void MainWindow::Lista()
             {
                 data.erase(data.length()-1, data.length());
 
-
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
 
+                programa +=  data + "|" + analizador.identificar(data) + " ";
+                
                 data = "(";
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+
+                programa +=  data + "|" + analizador.identificar(data)  + " ";
 
                 data.clear();
             }else
@@ -180,6 +718,9 @@ void MainWindow::Lista()
                 data = "(";
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                
+                programa +=  data + "|" + analizador.identificar(data)  + " ";
+                
                 data.clear();
             }
             break;
@@ -190,10 +731,12 @@ void MainWindow::Lista()
 
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                programa +=  data + "|" + analizador.identificar(data)  + " ";
 
                 data = "{";
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                programa +=  data + "|" + analizador.identificar(data)  + " ";
 
                 data.clear();
             }else
@@ -202,6 +745,8 @@ void MainWindow::Lista()
                 data = "{";
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                programa +=  data + "|" + analizador.identificar(data)  + " ";
+                
                 data.clear();
             }
             break;
@@ -212,10 +757,12 @@ void MainWindow::Lista()
 
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                programa +=  data + "|" + analizador.identificar(data)  + " ";
 
                 data = ")";
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                programa +=  data + "|" + analizador.identificar(data)  + " ";
 
                 data.clear();
             }else
@@ -224,6 +771,8 @@ void MainWindow::Lista()
                 data = ")";
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                programa +=  data + "|" + analizador.identificar(data)  + " ";
+                
                 data.clear();
             }
             break;
@@ -234,10 +783,14 @@ void MainWindow::Lista()
 
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                
+                programa +=  data + "|" + analizador.identificar(data)  + " ";
 
                 data = "}";
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                
+                programa +=  data + "|" + analizador.identificar(data)  + " ";
 
                 data.clear();
             }else
@@ -246,6 +799,8 @@ void MainWindow::Lista()
                 data = "}";
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                programa +=  data + "|" + analizador.identificar(data)  + " ";
+                
                 data.clear();
             }
             break;
@@ -256,10 +811,12 @@ void MainWindow::Lista()
 
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                programa +=  data + "|" + analizador.identificar(data)  + " ";
 
                 data = "[";
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                programa +=  data + "|" + analizador.identificar(data)  + " ";
 
                 data.clear();
             }else
@@ -268,6 +825,8 @@ void MainWindow::Lista()
                 data = "[";
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                programa +=   data + "|" + analizador.identificar(data)  + " ";
+                
                 data.clear();
             }
             break;
@@ -278,10 +837,12 @@ void MainWindow::Lista()
 
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                programa +=  data + "|" +  analizador.identificar(data)  + " ";
 
                 data = "]";
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                programa +=   data + "|" + analizador.identificar(data)  + " ";
 
                 data.clear();
             }else
@@ -290,6 +851,8 @@ void MainWindow::Lista()
                 data = "]";
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                programa +=   data + "|" + analizador.identificar(data)  + " ";
+                
                 data.clear();
             }
             break;
@@ -300,10 +863,11 @@ void MainWindow::Lista()
 
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
-
+                programa +=   data + "|" + analizador.identificar(data)  + " ";
                 data = ";";
-
+                
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                programa +=   data + "|" + analizador.identificar(data)  + " ";
 
                 data.clear();
             }else
@@ -312,6 +876,8 @@ void MainWindow::Lista()
                 data = ";";
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                programa +=  data + "|" +  analizador.identificar(data)  + " ";
+                
                 data.clear();
             }
             break;
@@ -326,16 +892,26 @@ void MainWindow::Lista()
                         data += cadena[i];
                         data.erase(data.length()-2, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=   data + "|" + analizador.identificar(data)  + " ";
+                        
                         data = "<=";
+                        
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=   data + "|" + analizador.identificar(data)  + " ";
+                        
                         data.clear();
                     }
                     else
                     {
                         data.erase(data.length()-1, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=   data + "|" + analizador.identificar(data)  + " ";
+                        
                         data = "<";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
+                        
                         data.clear();
                     }
                 }
@@ -343,8 +919,13 @@ void MainWindow::Lista()
                     {
                         data.erase(data.length()-1, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=   data + "|" + analizador.identificar(data)  + " ";
+                        
                         data = "<";
+                        
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=   data + "|" + analizador.identificar(data)  + " ";
+                        
                         data.clear();
                     }
 
@@ -358,12 +939,16 @@ void MainWindow::Lista()
                         data += cadena[i];
                         data = "<=";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=   data + "|" + analizador.identificar(data)  + " ";
+                     
                         data.clear();
                     }
                     else
                     {
                         data = "<";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=   data + "|" + analizador.identificar(data)  + " ";
+                        
                         data.clear();
                     }
                 }
@@ -371,6 +956,8 @@ void MainWindow::Lista()
                 {
                     data = "<";
                     ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                    programa +=   data + "|" + analizador.identificar(data)  + " ";
+             
                     data.clear();
             }
             }
@@ -386,16 +973,23 @@ void MainWindow::Lista()
                         data += cadena[i];
                         data.erase(data.length()-2, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" +  analizador.identificar(data)  + " ";
+                
                         data = ">=";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=   data + "|" + analizador.identificar(data)  + " ";
+                    
                         data.clear();
                     }
                     else
                     {
                         data.erase(data.length()-1, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=   data + "|" + analizador.identificar(data)  + " ";
+                        
                         data = ">";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=   data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
                 }
@@ -403,8 +997,10 @@ void MainWindow::Lista()
                     {
                         data.erase(data.length()-1, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=   data + "|" + analizador.identificar(data)  + " ";
                         data = ">";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=   data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
 
@@ -418,12 +1014,14 @@ void MainWindow::Lista()
                         data += cadena[i];
                         data = ">=";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=   data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
                     else
                     {
                         data = ">";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=   data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
                 }
@@ -431,6 +1029,7 @@ void MainWindow::Lista()
                 {
                     data = ">";
                     ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                    programa +=  data + "|" +  analizador.identificar(data)  + " ";
                     data.clear();
             }
             }
@@ -448,11 +1047,11 @@ void MainWindow::Lista()
                                 data.erase(data.length()-2, data.length());
 
                                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
-
+                                programa +=   data + "|" + analizador.identificar(data)  + " ";
                                 data = "==";
 
                                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
-
+                                programa +=  data + "|" +  analizador.identificar(data)  + " ";
                                 data.clear();
 
                             }
@@ -461,11 +1060,11 @@ void MainWindow::Lista()
                                 data.erase(data.length()-1, data.length());
 
                                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
-
+                                programa +=  data + "|" +  analizador.identificar(data)  + " ";
                                 data = "=";
 
                                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
-
+                                programa +=  data + "|" +  analizador.identificar(data)  + " ";
                                 data.clear();
                             }
                         }
@@ -474,11 +1073,11 @@ void MainWindow::Lista()
                                 data.erase(data.length()-1, data.length());
 
                                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
-
+                                programa +=   data + "|" + analizador.identificar(data)  + " ";
                                 data = "=";
 
                                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
-
+                                programa +=   data + "|" + analizador.identificar(data)  + " ";
                                 data.clear();
                             }
 
@@ -492,12 +1091,14 @@ void MainWindow::Lista()
                                 data += cadena[i];
                                 data = "==";
                                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                                programa +=   data + "|" + analizador.identificar(data)  + " ";
                                 data.clear();
                             }
                             else
                             {
                                 data = "=";
                                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                                programa +=   data + "|" + analizador.identificar(data)  + " ";
                                 data.clear();
                             }
                         }
@@ -505,6 +1106,7 @@ void MainWindow::Lista()
                         {
                                 data = "=";
                                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                                programa +=  data + "|" +  analizador.identificar(data)  + " ";
                                 data.clear();
                         }
                     }
@@ -520,16 +1122,20 @@ void MainWindow::Lista()
                         data += cadena[i];
                         data.erase(data.length()-2, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" +  analizador.identificar(data)  + " ";
                         data = "||";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=   data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
                     else
                     {
                         data.erase(data.length()-1, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=   data + "|" + analizador.identificar(data)  + " ";
                         data = "|";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=   data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
                 }
@@ -537,8 +1143,10 @@ void MainWindow::Lista()
                     {
                         data.erase(data.length()-1, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" +  analizador.identificar(data)  + " ";
                         data = "|";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=   data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
 
@@ -552,12 +1160,14 @@ void MainWindow::Lista()
                         data += cadena[i];
                         data = "||";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" +  analizador.identificar(data)  + " ";
                         data.clear();
                     }
                     else
                     {
                         data = "|";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=   data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
                 }
@@ -565,6 +1175,7 @@ void MainWindow::Lista()
                 {
                     data = "|";
                     ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                    programa +=   data + "|" + analizador.identificar(data)  + " ";
                     data.clear();
                 }
             }
@@ -582,11 +1193,11 @@ void MainWindow::Lista()
                                 data.erase(data.length()-2, data.length());
 
                                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
-
+                                programa +=   data + "|" + analizador.identificar(data)  + " ";
                                 data = "&&";
 
                                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
-
+                                programa +=   data + "|" + analizador.identificar(data)  + " ";
                                 data.clear();
 
                             }
@@ -595,11 +1206,11 @@ void MainWindow::Lista()
                                 data.erase(data.length()-1, data.length());
 
                                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
-
+                                programa +=  data + "|" +  analizador.identificar(data)  + " ";
                                 data = "&";
 
                                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
-
+                                programa +=  data + "|" +  analizador.identificar(data)  + " ";
                                 data.clear();
                             }
                         }
@@ -608,11 +1219,11 @@ void MainWindow::Lista()
                                 data.erase(data.length()-1, data.length());
 
                                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
-
+                                programa +=   data + "|" + analizador.identificar(data)  + " ";
                                 data = "&";
 
                                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
-
+                                programa +=  data + "|" +  analizador.identificar(data)  + " ";
                                 data.clear();
                             }
 
@@ -626,12 +1237,14 @@ void MainWindow::Lista()
                                 data += cadena[i];
                                 data = "&&";
                                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                                programa +=  data + "|" +  analizador.identificar(data)  + " ";
                                 data.clear();
                             }
                             else
                             {
                                 data = "&";
                                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                                programa +=  data + "|" +  analizador.identificar(data)  + " ";
                                 data.clear();
                             }
                         }
@@ -639,6 +1252,7 @@ void MainWindow::Lista()
                         {
                             data = "&";
                                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                                programa +=  data + "|" + analizador.identificar(data)  + " ";
                                 data.clear();
                         }
                     }
@@ -646,13 +1260,16 @@ void MainWindow::Lista()
         case '%':
             if(data != "%")
             {
+                //Por revisar
                 data.erase(data.length()-1, data.length());
                 ui->listWidget->addItem(QString::fromStdString(data));
                 ui->listWidget->addItem(QString::fromStdString("%"));
+                programa +=  data + "|" + analizador.identificar(data)  + " ";
                 data.clear();
             }else
             {
                 ui->listWidget->addItem(QString::fromStdString("%"));
+                programa +=  data + "|" + analizador.identificar(data)  + " ";
                 data.clear();
             }
             break;
@@ -667,16 +1284,20 @@ void MainWindow::Lista()
                         data += cadena[i];
                         data.erase(data.length()-2, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data = "!=";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
                     else
                     {
                         data.erase(data.length()-1, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data = "!";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
                 }
@@ -684,8 +1305,10 @@ void MainWindow::Lista()
                     {
                         data.erase(data.length()-1, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data = "!";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
 
@@ -699,12 +1322,14 @@ void MainWindow::Lista()
                         data += cadena[i];
                         data = "!=";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
                     else
                     {
                         data = "!";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
                 }
@@ -712,6 +1337,7 @@ void MainWindow::Lista()
                 {
                     data = "!";
                     ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                    programa +=  data + "|" + analizador.identificar(data)  + " ";
                     data.clear();
                 }
             }
@@ -719,6 +1345,8 @@ void MainWindow::Lista()
         case '/':
             if(data != "/")
             {
+                
+                //Por revisar
                 data.erase(data.length()-1, data.length());
                 ui->listWidget->addItem(QString::fromStdString(data));
                 ui->listWidget->addItem(QString::fromStdString("/"));
@@ -726,6 +1354,7 @@ void MainWindow::Lista()
             }else
             {
                 ui->listWidget->addItem(QString::fromStdString("("));
+                programa +=  data + "|" + analizador.identificar(data)  + " ";
                 data.clear();
             }
             break;
@@ -740,16 +1369,20 @@ void MainWindow::Lista()
                         data += cadena[i];
                         data.erase(data.length()-2, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data = "++";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
                     else
                     {
                         data.erase(data.length()-1, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data = "+";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
                 }
@@ -757,8 +1390,10 @@ void MainWindow::Lista()
                     {
                         data.erase(data.length()-1, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data = "+";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
 
@@ -772,12 +1407,14 @@ void MainWindow::Lista()
                         data += cadena[i];
                         data = "++";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
                     else
                     {
                         data = "+";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
                 }
@@ -785,6 +1422,7 @@ void MainWindow::Lista()
                 {
                     data = "+";
                     ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                    programa +=  data + "|" + analizador.identificar(data)  + " ";
                     data.clear();
                 }
             }
@@ -800,16 +1438,20 @@ void MainWindow::Lista()
                         data += cadena[i];
                         data.erase(data.length()-2, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data = "--";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
                     else
                     {
                         data.erase(data.length()-1, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data = "-";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
                 }
@@ -817,8 +1459,11 @@ void MainWindow::Lista()
                     {
                         data.erase(data.length()-1, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
+                        
                         data = "-";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
 
@@ -832,12 +1477,14 @@ void MainWindow::Lista()
                         data += cadena[i];
                         data = "--";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa += data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
                     else
                     {
                         data = "-";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                        programa +=  data + "|" + analizador.identificar(data)  + " ";
                         data.clear();
                     }
                 }
@@ -845,6 +1492,7 @@ void MainWindow::Lista()
                 {
                     data = "-";
                     ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                    programa +=  data + "|" + analizador.identificar(data)  + " ";
                     data.clear();
                 }
             }
@@ -852,13 +1500,16 @@ void MainWindow::Lista()
         case '*':
             if(data != "*")
             {
+                //Por revisar
                 data.erase(data.length()-1, data.length());
                 ui->listWidget->addItem(QString::fromStdString(data));
                 ui->listWidget->addItem(QString::fromStdString("*"));
+                programa +=  data + "|" + analizador.identificar(data)  + " ";
                 data.clear();
             }else
             {
                 ui->listWidget->addItem(QString::fromStdString("*"));
+                programa +=  data + "|" + analizador.identificar(data)  + " ";
                 data.clear();
             }
         case ' ':
@@ -866,7 +1517,9 @@ void MainWindow::Lista()
             {
                 data.erase(data.length()-1, data.length());
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
+                programa +=  data + "|" + analizador.identificar(data)  + " ";
                 data.clear();
+                
             }else
             {
                 data.clear();
@@ -884,5 +1537,10 @@ void MainWindow::Lista()
 
         i++;
     }
+    //Corre el sintactico
+
+    programa+="$|Reservadas|23";
+
+    RunPila(pila, programa);
 
 };

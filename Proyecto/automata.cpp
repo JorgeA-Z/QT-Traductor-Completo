@@ -34,12 +34,12 @@ std::string  Automata::identificar(string& palabras)
     {
         obtenido = Analizar(palabras);
         int casos = Casos(palabras, obtenido);
-        return resultados[obtenido] + " " +to_string(casos);
+        return resultados[obtenido] + "|" +to_string(casos);
     }
     else
     {
         int casos = Casos(palabras, obtenido);
-        return resultados[obtenido] + " " +to_string(casos);
+        return resultados[obtenido] + "|" +to_string(casos);
     }
 };
 int Automata::Casos(string palabras, int obtenido)
