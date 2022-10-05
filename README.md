@@ -23,5 +23,5 @@ La interfaz contiene una caja de texto en donde se pueden listar los tokens a an
 Para el módulo 2, se hicieron modificaciones respecto al analizador morfologioco, siendo que ahora es posible escribir en una caja de texto sin limitación, simulando un IDE de un lenguaje de programación.
 A su vez, se agregó una pequeña consola que irá detallando las reglas gramaticales que hayan sido utilizadas para la realización de las reducciónes y los desplazamientos en la tabla de transisiones.
 
-![alt text](https://github.com/JorgeA-Z/QT-Traductor-Completo/tree/main/Modulo%202/Código%20fuente/Imagenes/Sintactico.jpeg)
+![alt text](https://github.com/JorgeA-Z/QT-Traductor-Completo/blob/main/Modulo%202/Código%20fuente/Imagenes/Sintactico.jpg)
 
