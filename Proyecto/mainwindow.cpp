@@ -25,7 +25,7 @@ MainWindow::~MainWindow()
 void MainWindow::RunPila(Pila& pila, std::string& programa)
 {
 
-    std::cout << programa << std::endl;
+//    std::cout << programa << std::endl;
   
     EP* elemento;
 
@@ -92,16 +92,16 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                     ui->listWidget->addItem(QString::fromStdString(to_string(accion)));
                 }
 
-                std::cout << fila << " " << columna << " " << accion <<std::endl;
+         //       std::cout << fila << " " << columna << " " << accion <<std::endl;
 
-                std::cout << token << " " << tipo << " " << accion <<std::endl;
+             //   std::cout << token << " " << tipo << " " << accion <<std::endl;
                 if(accion < 0)
                 {
                     switch(accion)
                     {
                         case -1:
 
-                        std::cout << "Analisis completado"  <<std::endl;
+//                        std::cout << "Analisis completado"  <<std::endl;
                         ui->listWidget->addItem("Analisis sintactico completado con satisfaccion");
                         parcing = false;
                         ui->progressBar->setValue(100);
@@ -185,8 +185,6 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         pila.push(elemento);
 
-                        std::cout << token << std::endl;
-
                         i--;
                         break;
 
@@ -226,8 +224,6 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         pila.push(elemento);
 
-                        std::cout << token << std::endl;
-
                         i--;
                         break;
                         
@@ -248,7 +244,6 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         pila.push(elemento);
 
-                        std::cout << token << std::endl;
                         i--;
                         break;
                         
@@ -1152,9 +1147,9 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                 }else if ( accion == 0)
                 {
-                    std::cout << "Error sintactico" <<std::endl;
-                    Errores(columna);
+                    //std::cout << "Error sintactico" <<std::endl;
 
+                    Errores(columna);
                     ui->progressBar->setValue(75);
                     ui->progressBar->setStyleSheet("QProgressBar::chunk {background:Red;}");
                     parcing = false;
@@ -1170,7 +1165,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                     
                     pila.push(elemento);
 
-                    std::cout << fila << " " << columna << " " << accion <<std::endl;
+                    //std::cout << fila << " " << columna << " " << accion <<std::endl;
 
                 }
 
@@ -1211,12 +1206,27 @@ void MainWindow::PopPila(const int&tokens, Pila& pila)
         i++;
     }
 
-    std::cout << "Se ha popeado: " << i << "Tokens a popear: " << PopTokens << std::endl;
+    //std::cout << "Se ha popeado: " << i << "Tokens a popear: " << PopTokens << std::endl;
 
 };
 void MainWindow::Errores(const int&error)
 {
     ui->listWidget->addItem("Error sintactico, analisis fallido: " + QString::fromStdString(to_string(error)));
+    std::string msgError;
+    if(error < 4)
+    {
+        msgError = ";";
+    }
+    else if(error < 12)
+    {
+        msgError = "Variable";
+    }
+    else if(error == 23)
+    {
+         msgError = ";";
+    }
+    ui->listWidget->addItem("Syntax Error ' " + QString::fromStdString(MensajesError[error]) + " '");
+    ui->listWidget->addItem("Se esperaba -> ' " + QString::fromStdString(msgError) + " '");
 };
 
 void MainWindow::Lista()
