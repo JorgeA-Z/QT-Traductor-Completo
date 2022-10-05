@@ -20,8 +20,10 @@ La interfaz contiene una caja de texto en donde se pueden listar los tokens a an
 ![alt text](https://github.com/JorgeA-Z/QT-Traductor-Completo/blob/main/Modulo%201/Codigo%20fuente/Imagenes/Máquina%20de%20estados.jpeg)
 
 ## Traductor sintactico
+###### Interfaz
 Para el módulo 2, se hicieron modificaciones respecto al analizador morfologioco, siendo que ahora es posible escribir en una caja de texto sin limitación, simulando un IDE de un lenguaje de programación.
 A su vez, se agregó una pequeña consola que irá detallando las reglas gramaticales que hayan sido utilizadas para la realización de las reducciónes y los desplazamientos en la tabla de transisiones.
 
 ![alt text](https://github.com/JorgeA-Z/QT-Traductor-Completo/blob/main/Modulo%202/Código%20fuente/Imagenes/Sintactico.jpg)
 
+This site was built using [GitHub Pages](https://pages.github.com/).
