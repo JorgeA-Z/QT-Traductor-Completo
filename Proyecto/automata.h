@@ -14,18 +14,16 @@ private:
         "case","enum","register","typeof",
         "char","extern","return","union",
         "const","float","short","unsigned",
-        "continue","for","signed","void",
+        "continue","signed","void",
         "default","goto","sizeof","volatile"};
 
-    int tamOA = 8;
-    std::string operadoresAritmeticos[8] = {
-        "+","-","*","/",
-        "%","++","--","="};
+    int tamOA = 6;
+    std::string operadoresAritmeticos[6] = {
+        "+","-","*","/","%","="};
 
-    int tamOL = 9;
-    std::string operadoresLogicos[9] = {
-        "&&","||","!","!=",
-        "<","<=",">",">=","=="};
+    int tamOL = 3;
+    std::string operadoresLogicos[3] = {
+        "&&","||","!"};
 
     int tamAbecedario = 26;
     char abecedario[26] = {
@@ -49,14 +47,15 @@ private:
         ',',';','[',']','{','}','$','&','>','<'};
 
     std::string resultados[11] = {
-        "Reservadas","Operadores Aritmeticos","Operadores Logicos","Identificador",
-        "Hexadecimal","Float","Int","Arreglo","Identificador", "Simbolo", "No Identificado"};
+        "Reservadas","Aritmeticos","Logicos","Identificador",
+        "Hexadecimal","Float","Int","Arreglo","Identificador", "Simbolo", "No_identificado"};
 
     std::string Tipos[8] = {
         "double","int","long","char","const","float","short","unsigned"};
 
-    std::string Relacionales[3] = {
-        "<=", ">=", "!=" };
+    int tamRelacionales = 5;
+    std::string Relacionales[5] = {
+        "<=", ">=", "!=", "<", ">"};
 
 public:
     Automata();

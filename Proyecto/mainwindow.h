@@ -25,6 +25,7 @@ public:
     void RunPila(Pila&, std::string&);
 
     void PopPila(const int&, Pila&);
+    void Errores(const int&);
 
 private slots:
     void Lista();

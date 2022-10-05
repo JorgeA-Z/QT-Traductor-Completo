@@ -34,25 +34,25 @@ std::string  Automata::identificar(string& palabras)
     {
         obtenido = Analizar(palabras);
         int casos = Casos(palabras, obtenido);
-        return resultados[obtenido] + "|" +to_string(casos);
+        return resultados[obtenido] + ":" +to_string(casos);
     }
     else
     {
         int casos = Casos(palabras, obtenido);
-        return resultados[obtenido] + "|" +to_string(casos);
+        return resultados[obtenido] + ":" +to_string(casos);
     }
 };
 int Automata::Casos(string palabras, int obtenido)
 {
-    if(resultados[obtenido] == "Identificador")
+    if(resultados[obtenido] == "Identificador" && palabras != "==" && palabras != "!=")
     {
         return 0;
     }
-    if(resultados[obtenido] == "int")
+    if(resultados[obtenido] == "Int")
     {
         return 1;
     }
-    if(resultados[obtenido] == "float")
+    if(resultados[obtenido] == "Float")
     {
         return 2;
     }
@@ -64,15 +64,15 @@ int Automata::Casos(string palabras, int obtenido)
             return 4;
         }
     }
-    if(palabras == "+")
+    if(palabras == "+" || palabras == "-")
     {
         return 5;
     }
-    if(palabras == "*")
+    if(palabras == "*" || palabras == "/" || palabras == "%")
     {
         return 6;
     }
-    if(EstaDentro(Relacionales, palabras, 3))
+    if(EstaDentro(Relacionales, palabras, tamRelacionales))
     {
         return 7;
     }
