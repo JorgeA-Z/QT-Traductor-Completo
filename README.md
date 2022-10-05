@@ -26,4 +26,4 @@ A su vez, se agregó una pequeña consola que irá detallando las reglas gramati
 
 ![alt text](https://github.com/JorgeA-Z/QT-Traductor-Completo/blob/main/Modulo%202/Código%20fuente/Imagenes/Sintactico.jpg)
 
-This site was built using [GitHub Pages]([https://pages.github.com/](https://github.com/JorgeA-Z/QT-Traductor-Completo/blob/main/Modulo%202/Reglas%20Gramaticales/Reglas.xlsx)).
+[Contribution guidelines for this project]([https://pages.github.com/](https://github.com/JorgeA-Z/QT-Traductor-Completo/blob/main/Modulo%202/Reglas%20Gramaticales/Reglas.xlsx)
