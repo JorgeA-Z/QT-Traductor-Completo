@@ -25,5 +25,3 @@ Para el módulo 2, se hicieron modificaciones respecto al analizador morfologioc
 A su vez, se agregó una pequeña consola que irá detallando las reglas gramaticales que hayan sido utilizadas para la realización de las reducciónes y los desplazamientos en la tabla de transisiones.
 
 ![alt text](https://github.com/JorgeA-Z/QT-Traductor-Completo/blob/main/Modulo%202/Código%20fuente/Imagenes/Sintactico.jpg)
-
-[Contribution guidelines for this project]([https://pages.github.com/](https://github.com/JorgeA-Z/QT-Traductor-Completo/blob/main/Modulo%202/Reglas%20Gramaticales/Reglas.xlsx)
