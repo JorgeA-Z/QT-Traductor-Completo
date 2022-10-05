@@ -25,5 +25,12 @@ Para el módulo 2, se hicieron modificaciones respecto al analizador morfologioc
 A su vez, se agregó una pequeña consola que irá detallando las reglas gramaticales que hayan sido utilizadas para la realización de las reducciónes y los desplazamientos en la tabla de transisiones.
 
 ![alt text](https://github.com/JorgeA-Z/QT-Traductor-Completo/blob/main/Modulo%202/Código%20fuente/Imagenes/Sintactico.jpg)
-###### Reglas gramaticales	
+###### Reglas gramaticales
+
+Las siguientes reglas fueron utilizadas para desarrollar el analizador sintactico del compilador, constando con un número n de reglas o símbolos no terminales.
+
 ![image](https://user-images.githubusercontent.com/74442427/194086161-058abca0-d9f0-4089-9033-13a88dffed75.png)
+###### Tabla de transiciones
+
+A su vez, la siguiente tabla de transiciones o grámatica, fue utilizada para la realización del algoritmo LR(1) de nuestro analizador sintactico.
+![image](https://user-images.githubusercontent.com/74442427/194086637-18b465f0-0340-46f2-bba9-6afe0cc30b52.png)
