@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-fe839b3844f8b91c1a43.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Traductor_lexico",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Traductor_lexico::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Traductor_lexico-Release-5ce87680449208ef87c5.json",
+					"name" : "Traductor_lexico",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Traductor_lexico_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Traductor_lexico_autogen-Release-8c9e11b8f10d4f1ebc8d.json",
+					"name" : "Traductor_lexico_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Traductor_lexico_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Traductor_lexico_autogen_timestamp_deps-Release-57bdcf118944d54ff11c.json",
+					"name" : "Traductor_lexico_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/52322/Desktop/QT-Traductor-Completo",
+		"source" : "C:/Users/52322/Desktop/QT-Traductor-Completo/Proyecto"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}
