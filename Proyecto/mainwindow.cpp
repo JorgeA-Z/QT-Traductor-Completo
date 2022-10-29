@@ -3,6 +3,8 @@
 #include <string>
 #include <iostream>
 #include <QDebug>
+#include <QFile>
+#include <QFont>
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -12,6 +14,26 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);
     setFixedSize(width(), height());
+
+    /*
+
+    QFile file(R"(C:\Users\52322\Desktop\Stylesheet\Persona5.qss)");
+
+    file.open(QFile::ReadOnly);
+    QString styleSheet = QLatin1String(file.readAll());
+    setStyleSheet(styleSheet);
+
+
+    QFile r(R"(C:\Users\52322\Desktop\QT-Traductor-Completo\Proyecto\fonts\p5hatty.ttf)");
+
+    QFont f;
+    f.setFamily("p5hatty");
+    f.setPointSize(20);
+    ui->textEdit->setFont(f);
+
+    */
+
+
     connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(Lista()));
     ui->progressBar->setTextVisible(false);
     ui->progressBar->setValue(0);
@@ -44,7 +66,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
     int i = 0, j, control, accion, t, p;
     char c;
-    std::string data, tipo, token;
+    std::string data, tipo, token, aux1, aux2;
     bool llave = false, parcing = true;
     while (parcing)
     {
@@ -1142,9 +1164,10 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         break;
 
+
                     }
 
-
+                    ui->Pila->addItem(QString::fromStdString(pila.GetPila()));
                 }else if ( accion == 0)
                 {
                     //std::cout << "Error sintactico" <<std::endl;
@@ -1166,6 +1189,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                     pila.push(elemento);
 
                     //std::cout << fila << " " << columna << " " << accion <<std::endl;
+                    ui->Pila->addItem(QString::fromStdString(pila.GetPila()));
 
                 }
 
@@ -1175,7 +1199,6 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                 data +=c;
 
         }
-
 
         i++;
     } 

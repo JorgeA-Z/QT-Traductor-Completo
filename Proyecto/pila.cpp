@@ -1,5 +1,5 @@
 #include "pila.h"
-
+#include "lista.h""
 using namespace std;
 //Implementacion del nodo
 Pila::Nodo::Nodo()
@@ -141,4 +141,19 @@ Pila &Pila::operator=(const Pila &myPila)
     copyAll(myPila);
 
     return *this;
+};
+std::string Pila::GetPila()
+{
+    Lista lista;
+
+    Nodo *aux = ancla;
+
+    while(aux != nullptr)
+    {
+        lista.insertHead(aux->getVal()->get_val());
+
+        aux = aux->getReferencia();
+    }
+
+    return lista.getList();
 };

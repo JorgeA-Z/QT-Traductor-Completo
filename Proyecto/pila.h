@@ -50,5 +50,6 @@ public:
     EP* Top() const;
 
     Pila &operator=(const Pila &);
+    std::string GetPila();
 };
 #endif // PILA_H

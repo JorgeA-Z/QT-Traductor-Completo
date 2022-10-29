@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>fonts/p5hatty.ttf</file>
+    </qresource>
+</RCC>

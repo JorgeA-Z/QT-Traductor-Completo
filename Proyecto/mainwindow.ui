@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>584</width>
+    <width>874</width>
     <height>475</height>
    </rect>
   </property>
@@ -28,10 +28,7 @@
     </property>
     <property name="styleSheet">
      <string notr="true">color: #FFF;
-border: 2px solid rgb(141,182,205);
-
-
-</string>
+border: 2px solid rgb(141,182,205);</string>
     </property>
     <property name="html">
      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -46,7 +43,7 @@ hr { height: 1px; border-width: 0; }
     <property name="geometry">
      <rect>
       <x>470</x>
-      <y>379</y>
+      <y>380</y>
       <width>101</width>
       <height>71</height>
      </rect>
@@ -57,7 +54,7 @@ hr { height: 1px; border-width: 0; }
     border-style: outset;
     border-width: 2px;
     border-color: rgb(141,182,205);
-	color: #FFF
+    color: #FFF
 }
 QPushButton:pressed {
     background-color: (141,182,205);
@@ -93,8 +90,7 @@ border: 2px solid rgb(141,182,205);</string>
     </property>
     <property name="styleSheet">
      <string notr="true">color: #FFF;
-border: 2px solid rgb(141,182,205);
-</string>
+border: 2px solid rgb(141,182,205);</string>
     </property>
     <property name="text">
      <string>Consola</string>
@@ -114,8 +110,7 @@ border: 2px solid rgb(141,182,205);
     </property>
     <property name="styleSheet">
      <string notr="true">color: #FFF;
-border: 2px solid rgb(141,182,205);
-</string>
+border: 2px solid rgb(141,182,205);</string>
     </property>
     <property name="value">
      <number>24</number>
@@ -132,8 +127,7 @@ border: 2px solid rgb(141,182,205);
     </property>
     <property name="styleSheet">
      <string notr="true">color: #FFF;
-border: 2px solid rgb(141,182,205);
-</string>
+border: 2px solid rgb(141,182,205);</string>
     </property>
     <property name="text">
      <string>Editor</string>
@@ -142,6 +136,84 @@ border: 2px solid rgb(141,182,205);
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>20</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #FFF;
+border: 2px solid rgb(141,182,205);</string>
+    </property>
+    <property name="text">
+     <string>Pila</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="Pila">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>20</y>
+      <width>281</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);
+border: 2px solid rgb(141,182,205);</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="Arbol">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>190</y>
+      <width>281</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);
+border: 2px solid rgb(141,182,205);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>190</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #FFF;
+border: 2px solid rgb(141,182,205);</string>
+    </property>
+    <property name="text">
+     <string>Arbol</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <zorder>Pila</zorder>
+   <zorder>textEdit</zorder>
+   <zorder>pushButton</zorder>
+   <zorder>listWidget</zorder>
+   <zorder>label</zorder>
+   <zorder>progressBar</zorder>
+   <zorder>label_2</zorder>
+   <zorder>label_3</zorder>
+   <zorder>Arbol</zorder>
+   <zorder>label_4</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="contextMenuPolicy">
