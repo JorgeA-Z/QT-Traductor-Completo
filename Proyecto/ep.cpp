@@ -8,3 +8,7 @@ string EP::get_val()
 {
     return val;
 };
+int EP::get_estado()
+{
+    return stoi(val);
+};

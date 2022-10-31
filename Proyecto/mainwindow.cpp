@@ -103,7 +103,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                     j++;
                 }
                 //Aplicar el algoritmo
-                fila = stoi(pila.Top()->get_val());
+                fila = pila.Top()->get_estado();
                 
                 columna = stoi(tipo);
                 
@@ -138,7 +138,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         PopPila(1, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<programa>");
 
@@ -146,7 +146,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][24];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
                         i--;
@@ -157,7 +157,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R2
                         PopPila(0, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Definiciones>");
 
@@ -165,7 +165,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][25];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -176,7 +176,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R3
                         PopPila(2, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Definiciones>");
 
@@ -184,7 +184,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][25];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
                         i--;
@@ -195,7 +195,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R4
                         PopPila(1, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Definicion>");
 
@@ -203,7 +203,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][26];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -215,7 +215,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         PopPila(1, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Definicion>");
 
@@ -223,7 +223,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][26];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -234,7 +234,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R6
                         PopPila(4, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<DefVar>");
 
@@ -242,7 +242,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][27];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -254,7 +254,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         PopPila(0, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<ListaVar>");
 
@@ -262,7 +262,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][28];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -273,7 +273,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R8
                         PopPila(3, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<ListaVar>");
 
@@ -281,7 +281,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][28];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -292,7 +292,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R9
                         PopPila(6, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<DefFunc>");
 
@@ -300,7 +300,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][29];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
                         i--;
@@ -312,7 +312,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         PopPila(0, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Parametros>");
 
@@ -320,7 +320,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][30];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
                         i--;
@@ -330,7 +330,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R11
                         PopPila(3, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Parametros>");
 
@@ -338,7 +338,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][30];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
                         i--;
@@ -348,7 +348,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R12
                         PopPila(0, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<ListaParam>");
 
@@ -356,7 +356,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][31];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
                         i--;
@@ -366,7 +366,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R13
                         PopPila(4, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<ListaParam>");
 
@@ -374,7 +374,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][31];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
                         i--;
@@ -385,7 +385,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         PopPila(3, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<BloqFunc>");
 
@@ -393,7 +393,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][32];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -405,7 +405,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R15
                         PopPila(0, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<DefLocales>");
 
@@ -413,7 +413,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][33];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -426,7 +426,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R16
                         PopPila(2, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<DefLocales>");
 
@@ -434,7 +434,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][33];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
                         i--;
@@ -446,7 +446,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R17
                         PopPila(1, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<DefLocal>");
 
@@ -454,7 +454,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][34];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -467,7 +467,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         i--;
                         PopPila(1, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<DefLocal>");
 
@@ -475,7 +475,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][34];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -488,7 +488,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R19
                         PopPila(0, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Sentencias>");
 
@@ -496,7 +496,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][35];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -507,7 +507,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R20
                         PopPila(2, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Sentencias>");
 
@@ -515,7 +515,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][35];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -528,7 +528,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R21
                         PopPila(4, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Sentencia>");
 
@@ -536,7 +536,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][36];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -548,7 +548,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R22
                         PopPila(6, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Sentencia>");
 
@@ -556,7 +556,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][36];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -568,7 +568,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R23
                         PopPila(5, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Sentencia>");
 
@@ -576,7 +576,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][36];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -588,7 +588,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R24
                         PopPila(3, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Sentencia>");
 
@@ -596,7 +596,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][36];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -608,7 +608,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R25
                         PopPila(2, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Sentencia>");
 
@@ -616,7 +616,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][36];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -627,7 +627,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R26
                         PopPila(0, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Otro>");
 
@@ -635,7 +635,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][37];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -647,7 +647,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R27
                         PopPila(2, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Otro>");
 
@@ -655,7 +655,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][37];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -667,7 +667,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R28
                         PopPila(3, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Bloque>");
 
@@ -675,7 +675,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][38];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -687,7 +687,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R29
                         PopPila(0, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<ValorRegresa>");
 
@@ -695,7 +695,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][39];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -707,7 +707,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R30
                         PopPila(1, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<ValorRegresa>");
 
@@ -715,7 +715,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][39];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -727,7 +727,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R31
                         PopPila(0, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Argumentos>");
 
@@ -735,7 +735,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][40];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -747,7 +747,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R32
                         PopPila(2, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Argumentos>");
 
@@ -755,7 +755,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][40];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -767,7 +767,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R33
                         PopPila(0, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<ListaArgumentos>");
 
@@ -775,7 +775,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][41];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -787,7 +787,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R34
                         PopPila(3, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<ListaArgumentos>");
 
@@ -795,7 +795,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][41];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -807,7 +807,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R35
                         PopPila(1, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Termino>");
 
@@ -815,7 +815,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][42];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -828,7 +828,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         
                         PopPila(1, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Termino>");
 
@@ -836,7 +836,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][42];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -848,7 +848,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R37
                         PopPila(1, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Termino>");
 
@@ -856,7 +856,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][42];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -868,7 +868,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R38
                         PopPila(1, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Termino>");
 
@@ -876,7 +876,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][42];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -888,7 +888,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R39
                         PopPila(1, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Termino>");
 
@@ -896,7 +896,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][42];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -908,7 +908,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R40
                         PopPila(4, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<LlamadaFunc>");
 
@@ -916,7 +916,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][43];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -928,7 +928,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R41
                         PopPila(1, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<SentenciaBloque>");
 
@@ -936,7 +936,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][44];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -948,7 +948,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R42
                         PopPila(1, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<SentenciaBloque>");
 
@@ -956,7 +956,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][44];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -968,7 +968,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R43
                         PopPila(3, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Expresion>");
 
@@ -976,7 +976,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][45];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -988,7 +988,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R44
                         PopPila(2, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Expresion>");
 
@@ -996,7 +996,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][45];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -1008,7 +1008,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R45
                         PopPila(2, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Expresion>");
 
@@ -1016,7 +1016,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][45];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -1027,7 +1027,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         case -47:
                         PopPila(3, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Expresion>");
 
@@ -1035,7 +1035,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][45];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -1047,7 +1047,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R47
                         PopPila(3, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Expresion>");
 
@@ -1055,7 +1055,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][45];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -1068,7 +1068,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         PopPila(3, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Expresion>");
 
@@ -1076,7 +1076,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][45];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -1088,7 +1088,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R49
                         PopPila(3, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Expresion>");
 
@@ -1096,7 +1096,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][45];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -1108,7 +1108,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R50
                         PopPila(3, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Expresion>");
 
@@ -1116,7 +1116,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][45];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -1128,7 +1128,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R51
                         PopPila(3, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Expresion>");
 
@@ -1136,7 +1136,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][45];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -1148,7 +1148,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         //R52
                         PopPila(1, pila);
 
-                        fila = stoi(pila.Top()->get_val());
+                        fila = pila.Top()->get_estado();
 
                         elemento = new T("<Expresion>");
 
@@ -1156,7 +1156,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         accion = LR[fila][45];
 
-                        elemento = new T(to_string(accion));
+                        elemento = new E(accion);
 
                         pila.push(elemento);
 
@@ -1184,7 +1184,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                     
                     pila.push(elemento);
                     
-                    elemento = new T(to_string(accion));
+                    elemento = new E(accion);
                     
                     pila.push(elemento);
 
@@ -1271,7 +1271,7 @@ void MainWindow::Lista()
     std::string data;
 
     ui->listWidget->clear();
-
+    ui->Pila->clear();
     ui->progressBar->setValue(25);
 
     while (i < cadena.length())

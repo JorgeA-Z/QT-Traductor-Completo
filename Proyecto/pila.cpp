@@ -1,5 +1,5 @@
 #include "pila.h"
-#include "lista.h""
+#include "lista.h"
 using namespace std;
 //Implementacion del nodo
 Pila::Nodo::Nodo()

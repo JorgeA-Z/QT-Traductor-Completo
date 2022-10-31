@@ -9,6 +9,7 @@ protected:
 public:
     EP();
     virtual std::string get_val();
+    virtual int get_estado();
 
 };
 

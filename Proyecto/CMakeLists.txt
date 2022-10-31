@@ -36,6 +36,10 @@ set(PROJECT_SOURCES
         lista.h
         lista.cpp
         fonts.qrc
+        nodo.h
+        nodo.cpp
+        reglas.h
+        reglas.cpp
         ${TS_FILES}
 )
 
