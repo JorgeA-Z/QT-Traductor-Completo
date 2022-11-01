@@ -6,8 +6,9 @@
 #include "e.h"
 #include "nt.h"
 #include "automata.h"
-
+#include "reglas.h"
 #include <QMainWindow>
+#include "nodo.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,7 +25,7 @@ public:
 
     void RunPila(Pila&, std::string&);
 
-    void PopPila(const int&, Pila&);
+    void PopPila(const int&, Pila&, const int&, int&);
     void Errores(const int&);
 
 private slots:

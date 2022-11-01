@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QFont>
+#include "arbolsintactico.h""
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -48,8 +49,10 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 {
 
 //    std::cout << programa << std::endl;
-  
+
     EP* elemento;
+
+    ArbolSintactico tree;
 
     int fila, columna;
     elemento = new T("$");
@@ -104,10 +107,10 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                 }
                 //Aplicar el algoritmo
                 fila = pila.Top()->get_estado();
-                
+
                 columna = stoi(tipo);
-                
-                
+
+
                 accion = LR[fila][columna];
                 if(token != "$")
                 {
@@ -128,40 +131,31 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         parcing = false;
                         ui->progressBar->setValue(100);
                         ui->progressBar->setStyleSheet("QProgressBar::chunk {background:Green;}");
+                        pila.pop();
+                        tree.setRoot(pila.Top());
+
                         i--;
 
                         break;
 
-                        
+
                         case -2:
                         //R1
-
-                        PopPila(1, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<programa>");
-
-                        pila.push(elemento);
+                        PopPila(1, pila, accion, fila);
 
                         accion = LR[fila][24];
 
                         elemento = new E(accion);
 
                         pila.push(elemento);
+
                         i--;
-                        
+
                         break;
-                        
+
                         case -3:
                         //R2
-                        PopPila(0, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Definiciones>");
-
-                        pila.push(elemento);
+                        PopPila(0, pila, accion, fila);
 
                         accion = LR[fila][25];
 
@@ -174,32 +168,20 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -4:
                         //R3
-                        PopPila(2, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Definiciones>");
-
-                        pila.push(elemento);
+                        PopPila(2, pila, accion, fila);
 
                         accion = LR[fila][25];
 
                         elemento = new E(accion);
 
                         pila.push(elemento);
-                        i--;
 
+                        i--;
                         break;
 
                         case -5:
                         //R4
-                        PopPila(1, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Definicion>");
-
-                        pila.push(elemento);
+                        PopPila(1, pila, accion, fila);
 
                         accion = LR[fila][26];
 
@@ -212,14 +194,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -6:
                         //R5
-
-                        PopPila(1, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Definicion>");
-
-                        pila.push(elemento);
+                        PopPila(1, pila, accion, fila);
 
                         accion = LR[fila][26];
 
@@ -232,13 +207,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -7:
                         //R6
-                        PopPila(4, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<DefVar>");
-
-                        pila.push(elemento);
+                        PopPila(4, pila, accion, fila);
 
                         accion = LR[fila][27];
 
@@ -248,17 +217,10 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         i--;
                         break;
-                        
+
                         case -8:
                         //R7
-
-                        PopPila(0, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<ListaVar>");
-
-                        pila.push(elemento);
+                        PopPila(0, pila, accion, fila);
 
                         accion = LR[fila][28];
 
@@ -268,16 +230,10 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         i--;
                         break;
-                        
+
                         case -9:
                         //R8
-                        PopPila(3, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<ListaVar>");
-
-                        pila.push(elemento);
+                        PopPila(3, pila, accion, fila);
 
                         accion = LR[fila][28];
 
@@ -287,36 +243,23 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         i--;
                         break;
-                        
+
                         case -10:
                         //R9
-                        PopPila(6, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<DefFunc>");
-
-                        pila.push(elemento);
+                        PopPila(6, pila, accion, fila);
 
                         accion = LR[fila][29];
 
                         elemento = new E(accion);
 
                         pila.push(elemento);
-                        i--;
 
+                        i--;
                         break;
-                        
+
                         case -11:
                         //R10
-
-                        PopPila(0, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Parametros>");
-
-                        pila.push(elemento);
+                        PopPila(0, pila, -11, fila);
 
                         accion = LR[fila][30];
 
@@ -325,16 +268,10 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         pila.push(elemento);
                         i--;
                         break;
-                        
+
                         case -12:
                         //R11
-                        PopPila(3, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Parametros>");
-
-                        pila.push(elemento);
+                        PopPila(3, pila, accion, fila);
 
                         accion = LR[fila][30];
 
@@ -343,16 +280,10 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         pila.push(elemento);
                         i--;
                         break;
-                        
+
                         case -13:
                         //R12
-                        PopPila(0, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<ListaParam>");
-
-                        pila.push(elemento);
+                        PopPila(0, pila, accion, fila);
 
                         accion = LR[fila][31];
 
@@ -361,16 +292,10 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         pila.push(elemento);
                         i--;
                         break;
-                        
+
                         case -14:
                         //R13
-                        PopPila(4, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<ListaParam>");
-
-                        pila.push(elemento);
+                        PopPila(4, pila, accion, fila);
 
                         accion = LR[fila][31];
 
@@ -379,17 +304,10 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         pila.push(elemento);
                         i--;
                         break;
-                        
                         case -15:
                         //R14
 
-                        PopPila(3, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<BloqFunc>");
-
-                        pila.push(elemento);
+                        PopPila(3, pila, accion, fila);
 
                         accion = LR[fila][32];
 
@@ -400,16 +318,10 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         i--;
 
                         break;
-                        
+
                         case -16:
                         //R15
-                        PopPila(0, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<DefLocales>");
-
-                        pila.push(elemento);
+                        PopPila(0, pila, accion, fila);
 
                         accion = LR[fila][33];
 
@@ -421,16 +333,10 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         break;
 
-                        
+
                         case -17:
                         //R16
-                        PopPila(2, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<DefLocales>");
-
-                        pila.push(elemento);
+                        PopPila(2, pila, accion, fila);
 
                         accion = LR[fila][33];
 
@@ -441,16 +347,11 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         break;
 
-                        
+
                         case -18:
                         //R17
-                        PopPila(1, pila);
 
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<DefLocal>");
-
-                        pila.push(elemento);
+                        PopPila(1, pila, -18, fila);
 
                         accion = LR[fila][34];
 
@@ -461,17 +362,11 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         i--;
 
                         break;
-                        
+
                         case -19:
                         //R18
                         i--;
-                        PopPila(1, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<DefLocal>");
-
-                        pila.push(elemento);
+                        PopPila(1, pila, accion, fila);
 
                         accion = LR[fila][34];
 
@@ -483,16 +378,10 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         break;
 
-                        
+
                         case -20:
                         //R19
-                        PopPila(0, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Sentencias>");
-
-                        pila.push(elemento);
+                        PopPila(0, pila, accion, fila);
 
                         accion = LR[fila][35];
 
@@ -505,13 +394,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         break;
                         case -21:
                         //R20
-                        PopPila(2, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Sentencias>");
-
-                        pila.push(elemento);
+                        PopPila(2, pila, accion, fila);
 
                         accion = LR[fila][35];
 
@@ -523,16 +406,10 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         break;
 
-                        
+
                         case -22:
                         //R21
-                        PopPila(4, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Sentencia>");
-
-                        pila.push(elemento);
+                        PopPila(4, pila, accion, fila);
 
                         accion = LR[fila][36];
 
@@ -546,13 +423,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -23:
                         //R22
-                        PopPila(6, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Sentencia>");
-
-                        pila.push(elemento);
+                        PopPila(6, pila, accion, fila);
 
                         accion = LR[fila][36];
 
@@ -563,16 +434,10 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         i--;
 
                         break;
-                        
+
                         case -24:
                         //R23
-                        PopPila(5, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Sentencia>");
-
-                        pila.push(elemento);
+                        PopPila(5, pila, accion, fila);
 
                         accion = LR[fila][36];
 
@@ -586,13 +451,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -25:
                         //R24
-                        PopPila(3, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Sentencia>");
-
-                        pila.push(elemento);
+                        PopPila(3, pila, accion, fila);
 
                         accion = LR[fila][36];
 
@@ -606,13 +465,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -26:
                         //R25
-                        PopPila(2, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Sentencia>");
-
-                        pila.push(elemento);
+                        PopPila(2, pila, accion, fila);
 
                         accion = LR[fila][36];
 
@@ -625,13 +478,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         break;
                         case -27:
                         //R26
-                        PopPila(0, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Otro>");
-
-                        pila.push(elemento);
+                        PopPila(0, pila, accion, fila);
 
                         accion = LR[fila][37];
 
@@ -645,13 +492,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -28:
                         //R27
-                        PopPila(2, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Otro>");
-
-                        pila.push(elemento);
+                        PopPila(2, pila, accion, fila);
 
                         accion = LR[fila][37];
 
@@ -665,13 +506,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -29:
                         //R28
-                        PopPila(3, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Bloque>");
-
-                        pila.push(elemento);
+                        PopPila(3, pila, accion, fila);
 
                         accion = LR[fila][38];
 
@@ -685,13 +520,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -30:
                         //R29
-                        PopPila(0, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<ValorRegresa>");
-
-                        pila.push(elemento);
+                        PopPila(0, pila, accion, fila);
 
                         accion = LR[fila][39];
 
@@ -705,13 +534,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -31:
                         //R30
-                        PopPila(1, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<ValorRegresa>");
-
-                        pila.push(elemento);
+                        PopPila(1, pila, accion, fila);
 
                         accion = LR[fila][39];
 
@@ -722,16 +545,10 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         i--;
 
                         break;
-                        
+
                         case -32:
                         //R31
-                        PopPila(0, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Argumentos>");
-
-                        pila.push(elemento);
+                        PopPila(0, pila, accion, fila);
 
                         accion = LR[fila][40];
 
@@ -745,13 +562,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -33:
                         //R32
-                        PopPila(2, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Argumentos>");
-
-                        pila.push(elemento);
+                        PopPila(2, pila, accion, fila);
 
                         accion = LR[fila][40];
 
@@ -765,13 +576,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -34:
                         //R33
-                        PopPila(0, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<ListaArgumentos>");
-
-                        pila.push(elemento);
+                        PopPila(0, pila, accion, fila);
 
                         accion = LR[fila][41];
 
@@ -785,13 +590,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -35:
                         //R34
-                        PopPila(3, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<ListaArgumentos>");
-
-                        pila.push(elemento);
+                        PopPila(3, pila, accion, fila);
 
                         accion = LR[fila][41];
 
@@ -805,13 +604,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -36:
                         //R35
-                        PopPila(1, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Termino>");
-
-                        pila.push(elemento);
+                        PopPila(1, pila, accion, fila);
 
                         accion = LR[fila][42];
 
@@ -825,14 +618,8 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -37:
                         //R36
-                        
-                        PopPila(1, pila);
 
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Termino>");
-
-                        pila.push(elemento);
+                        PopPila(1, pila, accion, fila);
 
                         accion = LR[fila][42];
 
@@ -846,13 +633,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -38:
                         //R37
-                        PopPila(1, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Termino>");
-
-                        pila.push(elemento);
+                        PopPila(1, pila, accion, fila);
 
                         accion = LR[fila][42];
 
@@ -866,13 +647,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -39:
                         //R38
-                        PopPila(1, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Termino>");
-
-                        pila.push(elemento);
+                        PopPila(1, pila, accion, fila);
 
                         accion = LR[fila][42];
 
@@ -886,13 +661,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -40:
                         //R39
-                        PopPila(1, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Termino>");
-
-                        pila.push(elemento);
+                        PopPila(1, pila, accion, fila);
 
                         accion = LR[fila][42];
 
@@ -903,16 +672,10 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         i--;
 
                         break;
-                        
+
                         case -41:
                         //R40
-                        PopPila(4, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<LlamadaFunc>");
-
-                        pila.push(elemento);
+                        PopPila(4, pila, accion, fila);
 
                         accion = LR[fila][43];
 
@@ -926,13 +689,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -42:
                         //R41
-                        PopPila(1, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<SentenciaBloque>");
-
-                        pila.push(elemento);
+                        PopPila(1, pila, accion, fila);
 
                         accion = LR[fila][44];
 
@@ -946,13 +703,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -43:
                         //R42
-                        PopPila(1, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<SentenciaBloque>");
-
-                        pila.push(elemento);
+                        PopPila(1, pila, accion, fila);
 
                         accion = LR[fila][44];
 
@@ -966,13 +717,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -44:
                         //R43
-                        PopPila(3, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Expresion>");
-
-                        pila.push(elemento);
+                        PopPila(3, pila, accion, fila);
 
                         accion = LR[fila][45];
 
@@ -986,13 +731,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -45:
                         //R44
-                        PopPila(2, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Expresion>");
-
-                        pila.push(elemento);
+                        PopPila(2, pila, accion, fila);
 
                         accion = LR[fila][45];
 
@@ -1006,13 +745,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -46:
                         //R45
-                        PopPila(2, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Expresion>");
-
-                        pila.push(elemento);
+                        PopPila(2, pila, accion, fila);
 
                         accion = LR[fila][45];
 
@@ -1025,13 +758,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         break;
 
                         case -47:
-                        PopPila(3, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Expresion>");
-
-                        pila.push(elemento);
+                        PopPila(3, pila, accion, fila);
 
                         accion = LR[fila][45];
 
@@ -1045,13 +772,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -48:
                         //R47
-                        PopPila(3, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Expresion>");
-
-                        pila.push(elemento);
+                        PopPila(3, pila, accion, fila);
 
                         accion = LR[fila][45];
 
@@ -1066,13 +787,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         case -49:
                         //R48
 
-                        PopPila(3, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Expresion>");
-
-                        pila.push(elemento);
+                        PopPila(3, pila, accion, fila);
 
                         accion = LR[fila][45];
 
@@ -1083,16 +798,10 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                         i--;
 
                         break;
-                        
+
                         case -50:
                         //R49
-                        PopPila(3, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Expresion>");
-
-                        pila.push(elemento);
+                        PopPila(3, pila, accion, fila);
 
                         accion = LR[fila][45];
 
@@ -1106,13 +815,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -51:
                         //R50
-                        PopPila(3, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Expresion>");
-
-                        pila.push(elemento);
+                        PopPila(3, pila, accion, fila);
 
                         accion = LR[fila][45];
 
@@ -1126,13 +829,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -52:
                         //R51
-                        PopPila(3, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Expresion>");
-
-                        pila.push(elemento);
+                        PopPila(3, pila, accion, fila);
 
                         accion = LR[fila][45];
 
@@ -1146,13 +843,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         case -53:
                         //R52
-                        PopPila(1, pila);
-
-                        fila = pila.Top()->get_estado();
-
-                        elemento = new T("<Expresion>");
-
-                        pila.push(elemento);
+                        PopPila(1, pila, accion, fila);
 
                         accion = LR[fila][45];
 
@@ -1181,11 +872,11 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                 {
 
                     elemento = new T(token);
-                    
+
                     pila.push(elemento);
-                    
+
                     elemento = new E(accion);
-                    
+
                     pila.push(elemento);
 
                     //std::cout << fila << " " << columna << " " << accion <<std::endl;
@@ -1201,9 +892,9 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
         }
 
         i++;
-    } 
+    }
 
-    
+
 /*
 
     std::string valor;
@@ -1211,22 +902,1297 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 */
 
 };
-void MainWindow::PopPila(const int&tokens, Pila& pila)
+void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &fila)
 {
     // T = 0 * 2
     //T = 0
 
+    EP* elemento;
+    T* aux1;
+    T* aux3;
+    T* aux4;
+    T* aux8;
+    NT* aux2;
+    NT* aux7;
+    NT* aux9;
+    EP* aux5;
+    EP* aux6;
+
+    Nodo* regla;
 
     int PopTokens, i = 0;
 
     PopTokens = tokens * 2;
 
+    switch (idregla) {
+    case -2:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+            }
+            pila.pop();
+            i++;
+        }
+
+        regla = new R1(aux2);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<programa>", regla);
+        pila.push(elemento);
+
+        break;
+    case -3:
+        regla = new R2();
+
+        while(i < PopTokens)
+        {
+            i++;
+            pila.pop();
+        }
+
+        fila = pila.Top()->get_estado();
+
+        elemento = new NT("<Definiciones>", regla);
+
+        pila.push(elemento);
+
+        break;
+    case -4:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+            }
+            if(i == 3)
+            {
+                //No terminal
+                aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+            }
+            pila.pop();
+            i++;
+        }
+
+        regla = new R3(aux2, aux7);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Definiciones>", regla);
+        pila.push(elemento);
+
+        break;
+    case -5:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+            }
+            pila.pop();
+            i++;
+        }
+
+        regla = new R4(aux2);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Definicion>", regla);
+        pila.push(elemento);
+        break;
+    case -6:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+            }
+            pila.pop();
+            i++;
+        }
+
+        regla = new R5(aux2);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Definicion>", regla);
+        pila.push(elemento);
+        break;
+    case -7:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 3)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+            }
+            if(i == 5)
+            {
+                aux3 = new T(pila.Top()->get_val());
+            }
+            if(i == 7)
+            {
+                aux4 = new T(pila.Top()->get_val());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R6(aux1, aux3, aux2, aux4);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<DefVar>", regla);
+        pila.push(elemento);
+
+        break;
+
+    case -8:
+        regla = new R7();
+
+        while(i < PopTokens)
+        {
+            i++;
+            pila.pop();
+        }
+
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<ListaVar>", regla);
+        pila.push(elemento);
+
+        break;
+
+    case -9:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 3)
+            {
+                aux3 = new T(pila.Top()->get_val());
+            }
+            if(i == 5)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R8(aux1, aux3, aux2);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<ListaVar>", regla);
+        pila.push(elemento);
+
+        break;
+    case -10:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 3)
+            {
+                //No terminal
+                aux3 = new T(pila.Top()->get_val());
+            }
+            if(i == 5)
+            {
+                aux4 = new T(pila.Top()->get_val());
+            }
+            if(i == 7)
+            {
+                aux8 = new T(pila.Top()->get_val());
+
+            }
+            if(i == 9)
+            {
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+            if(i == 11)
+            {
+                aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+            pila.pop();
+            i++;
+        }
+
+        regla = new R9(aux1, aux3, aux4, aux8, aux2, aux7);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<DefFunc>", regla);
+        pila.push(elemento);
+
+        break;
+
+    case -11:
+        regla = new R10();
+
+        while(i < PopTokens)
+        {
+            i++;
+            pila.pop();
+        }
+
+        fila = pila.Top()->get_estado();
+
+        elemento = new NT("<Parametros>", regla);
+
+        pila.push(elemento);
+
+        break;
+    case -12:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 3)
+            {
+                aux3 = new T(pila.Top()->get_val());
+            }
+            if(i == 5)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R11(aux1, aux3, aux2);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Parametros>", regla);
+        pila.push(elemento);
+
+        break;
+    case -13:
+        while(i < PopTokens)
+        {
+            pila.pop();
+            i++;
+        }
+
+        regla = new R12();
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<ListaParam>", regla);
+        pila.push(elemento);
+
+        break;
+    case -14:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 3)
+            {
+                aux3 = new T(pila.Top()->get_val());
+            }
+            if(i == 5)
+            {
+                aux4 = new T(pila.Top()->get_val());
+            }
+            if(i == 7)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R13(aux1, aux3, aux4, aux2);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<ListaParam>", regla);
+        pila.push(elemento);
+
+        break;
+    case -15:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 3)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+            if(i == 5)
+            {
+                aux3 = new T(pila.Top()->get_val());
+            }
+
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R14(aux1, aux2, aux3);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<BloqFunc>", regla);
+        pila.push(elemento);
+
+        break;
+    case -16:
+        while(i < PopTokens)
+        {
+            pila.pop();
+            i++;
+        }
+
+        regla = new R15();
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<DefLocales>", regla);
+        pila.push(elemento);
+
+        break;
+    case -17:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+            if(i == 3)
+            {
+                //No terminal
+                aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R16(aux2, aux7);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<DefLocales>", regla);
+        pila.push(elemento);
+
+        break;
+    case -18:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), nullptr);
+            }
+
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R17(aux2);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<DefLocal>", regla);
+        pila.push(elemento);
+
+        break;
+    case -19:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R18(aux2);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<DefLocal>", regla);
+        pila.push(elemento);
+
+        break;
+    case -20:
+        while(i < PopTokens)
+            {
+                pila.pop();
+                i++;
+            }
+
+            regla = new R19();
+            fila = pila.Top()->get_estado();
+            elemento = new NT("<Sentencias>", regla);
+            pila.push(elemento);
+
+            break;
+    case -21:
+
     while(i < PopTokens)
     {
+        if(i == 1)
+        {
+            //No terminal
+            aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+        }
+        if(i == 3)
+        {
+            //No terminal
+            aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+        }
+
         pila.pop();
-
-
         i++;
+    }
+
+    regla = new R20(aux2, aux7);
+    fila = pila.Top()->get_estado();
+    elemento = new NT("<Sentencias>", regla);
+    pila.push(elemento);
+
+    break;
+    case -22:
+
+    while(i < PopTokens)
+    {
+        if(i == 1)
+        {
+            //Terminal
+            aux1 = new T(pila.Top()->get_val());
+        }
+        if(i == 3)
+        {
+            //Terminal
+            aux3 = new T(pila.Top()->get_val());
+        }
+        if(i == 5)
+        {
+            //No terminal
+            aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+        }
+        if(i == 7)
+        {
+            //Terminal
+            aux4 = new T(pila.Top()->get_val());
+        }
+
+        pila.pop();
+        i++;
+    }
+
+    regla = new R21(aux1, aux3, aux2, aux4);
+    fila = pila.Top()->get_estado();
+    elemento = new NT("<Sentencia>", regla);
+    pila.push(elemento);
+
+    break;
+    case -23:
+
+    while(i < PopTokens)
+    {
+        if(i == 1)
+        {
+            //Terminal
+            aux1 = new T(pila.Top()->get_val());
+        }
+        if(i == 3)
+        {
+            //Terminal
+            aux3 = new T(pila.Top()->get_val());
+        }
+        if(i == 5)
+        {
+            //Terminal
+            aux4 = new T(pila.Top()->get_val());
+        }
+        if(i == 7)
+        {
+            //No terminal
+            aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+        }
+        if(i == 9)
+        {
+            //No terminal
+            aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+        }
+        if(i == 11)
+        {
+            //No terminal
+            aux9 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+        }
+
+        pila.pop();
+        i++;
+    }
+
+    regla = new R22(aux1, aux3, aux4, aux2, aux7, aux9);
+    fila = pila.Top()->get_estado();
+    elemento = new NT("<Sentencia>", regla);
+    pila.push(elemento);
+
+    break;
+    case -24:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 3)
+            {
+                //Terminal
+                aux3 = new T(pila.Top()->get_val());
+            }
+            if(i == 5)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+            if(i == 7)
+            {
+                //Terminal
+                aux4 = new T(pila.Top()->get_val());
+            }
+            if(i == 9)
+            {
+                //No terminal
+                aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R23(aux1, aux3, aux2, aux4, aux7);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Sentencia>", regla);
+        pila.push(elemento);
+
+        break;
+    case -25:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 3)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+            if(i == 5)
+            {
+                //Terminal
+                aux3 = new T(pila.Top()->get_val());
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R24(aux1, aux2, aux3);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Sentencia>", regla);
+        pila.push(elemento);
+
+        break;
+    case -26:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R25(aux2);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Sentencia>", regla);
+        pila.push(elemento);
+
+        break;
+    case -27:
+        while(i < PopTokens)
+        {
+            pila.pop();
+            i++;
+        }
+
+        regla = new R26();
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Otro>", regla);
+        pila.push(elemento);
+
+        break;
+    case -28:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 3)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R27(aux1, aux2);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Otro>", regla);
+        pila.push(elemento);
+
+        break;
+    case -29:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 3)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+            if(i == 5)
+            {
+                //Terminal
+                aux3 = new T(pila.Top()->get_val());
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R28(aux1, aux2, aux3);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Bloque>", regla);
+        pila.push(elemento);
+
+        break;
+    case -30:
+        while(i < PopTokens)
+        {
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R29();
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<ValorRegresa>", regla);
+        pila.push(elemento);
+
+        break;
+    case -31:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R30(aux2);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<ValorRegresa>", regla);
+        pila.push(elemento);
+
+        break;
+    case -32:
+        while(i < PopTokens)
+        {
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R31();
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Argumentos>", regla);
+        pila.push(elemento);
+
+        break;
+    case -33:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+            if(i == 3)
+            {
+                //No terminal
+                aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R32(aux2, aux7);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Argumentos>", regla);
+        pila.push(elemento);
+
+        break;
+    case -34:
+        while(i < PopTokens)
+        {
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R33();
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<ListaArgumentos>", regla);
+        pila.push(elemento);
+
+        break;
+    case -35:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 3)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+            if(i == 5)
+            {
+                //No terminal
+                aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R34(aux1, aux2, aux7);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<ListaArgumentos>", regla);
+        pila.push(elemento);
+
+        break;
+    case -36:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R35(aux2);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Termino>", regla);
+        pila.push(elemento);
+
+        break;
+    case -37:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R36(aux1);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Termino>", regla);
+        pila.push(elemento);
+
+        break;
+    case -38:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R37(aux1);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Termino>", regla);
+        pila.push(elemento);
+
+        break;
+    case -39:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R38(aux1);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Termino>", regla);
+        pila.push(elemento);
+
+        break;
+    case -40:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R39(aux1);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Termino>", regla);
+        pila.push(elemento);
+
+        break;
+    case -41:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 3)
+            {
+                //Terminal
+                aux3 = new T(pila.Top()->get_val());
+            }
+            if(i == 5)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+            if(i == 7)
+            {
+                //Terminal
+                aux4 = new T(pila.Top()->get_val());
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R40(aux1, aux3, aux2, aux4);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<LlamadaFunc>", regla);
+        pila.push(elemento);
+
+        break;
+    case -42:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R41(aux2);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<SentenciaBloque>", regla);
+        pila.push(elemento);
+
+        break;
+    case -43:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R42(aux2);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<SentenciaBloque>", regla);
+        pila.push(elemento);
+
+        break;
+    case -44:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 3)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+            if(i == 5)
+            {
+                //Terminal
+                aux3 = new T(pila.Top()->get_val());
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R43(aux1, aux2, aux3);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Expresion>", regla);
+        pila.push(elemento);
+
+        break;
+    case -45:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 3)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R44(aux1, aux2);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Expresion>", regla);
+        pila.push(elemento);
+
+        break;
+    case -46:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 3)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R45(aux1, aux2);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Expresion>", regla);
+        pila.push(elemento);
+
+        break;
+    case -47:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+            }
+            if(i == 3)
+            {
+                //No terminal
+                aux1 = new T(pila.Top()->get_val());
+
+            }
+            if(i == 5)
+            {
+                //Terminal
+                aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R46(aux2, aux1, aux7);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Expresion>", regla);
+        pila.push(elemento);
+
+        break;
+    case -48:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+            if(i == 3)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 5)
+            {
+                //No terminal
+                aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R47(aux2, aux1, aux7);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Expresion>", regla);
+        pila.push(elemento);
+
+        break;
+    case -49:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+            if(i == 3)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 5)
+            {
+                //No terminal
+                aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R48(aux2, aux1, aux7);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Expresion>", regla);
+        pila.push(elemento);
+
+        break;
+    case -50:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+            if(i == 3)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 5)
+            {
+                //No terminal
+                aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R49(aux2, aux1, aux7);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Expresion>", regla);
+        pila.push(elemento);
+
+        break;
+    case -51:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+            if(i == 3)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 5)
+            {
+                //No terminal
+                aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R50(aux2, aux1, aux7);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Expresion>", regla);
+        pila.push(elemento);
+
+        break;
+    case -52:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //No terminal
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+            if(i == 3)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+            if(i == 5)
+            {
+                //No terminal
+                aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R51(aux2, aux1, aux7);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Expresion>", regla);
+        pila.push(elemento);
+
+        break;
+    case -53:
+        while(i < PopTokens)
+        {
+            if(i == 1)
+            {
+                //Terminal
+                aux1 = new T(pila.Top()->get_val());
+            }
+
+            pila.pop();
+            i++;
+        }
+
+        regla = new R52(aux1);
+        fila = pila.Top()->get_estado();
+        elemento = new NT("<Expresion>", regla);
+        pila.push(elemento);
+
+        break;
     }
 
     //std::cout << "Se ha popeado: " << i << "Tokens a popear: " << PopTokens << std::endl;
@@ -1291,7 +2257,7 @@ void MainWindow::Lista()
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
 
                 programa +=  data + ":" + analizador.identificar(data) + " ";
-                
+
                 data = "(";
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
@@ -1305,9 +2271,9 @@ void MainWindow::Lista()
                 data = "(";
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
-                
+
                 programa +=  data + ":" + analizador.identificar(data)  + " ";
-                
+
                 data.clear();
             }
             break;
@@ -1333,7 +2299,7 @@ void MainWindow::Lista()
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                 programa +=  data + ":" + analizador.identificar(data)  + " ";
-                
+
                 data.clear();
             }
             break;
@@ -1359,7 +2325,7 @@ void MainWindow::Lista()
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                 programa +=  data + ":" + analizador.identificar(data)  + " ";
-                
+
                 data.clear();
             }
             break;
@@ -1370,13 +2336,13 @@ void MainWindow::Lista()
 
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
-                
+
                 programa +=  data + ":" + analizador.identificar(data)  + " ";
 
                 data = "}";
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
-                
+
                 programa +=  data + ":" + analizador.identificar(data)  + " ";
 
                 data.clear();
@@ -1387,7 +2353,7 @@ void MainWindow::Lista()
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                 programa +=  data + ":" + analizador.identificar(data)  + " ";
-                
+
                 data.clear();
             }
             break;
@@ -1413,7 +2379,7 @@ void MainWindow::Lista()
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                 programa +=   data + ":" + analizador.identificar(data)  + " ";
-                
+
                 data.clear();
             }
             break;
@@ -1439,7 +2405,7 @@ void MainWindow::Lista()
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                 programa +=   data + ":" + analizador.identificar(data)  + " ";
-                
+
                 data.clear();
             }
             break;
@@ -1452,7 +2418,7 @@ void MainWindow::Lista()
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                 programa +=   data + ":" + analizador.identificar(data)  + " ";
                 data = ";";
-                
+
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                 programa +=   data + ":" + analizador.identificar(data)  + " ";
 
@@ -1464,7 +2430,7 @@ void MainWindow::Lista()
 
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                 programa +=  data + ":" +  analizador.identificar(data)  + " ";
-                
+
                 data.clear();
             }
             break;
@@ -1506,12 +2472,12 @@ void MainWindow::Lista()
                         data.erase(data.length()-2, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                         programa +=   data + ":" + analizador.identificar(data)  + " ";
-                        
+
                         data = "<=";
-                        
+
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                         programa +=   data + ":" + analizador.identificar(data)  + " ";
-                        
+
                         data.clear();
                     }
                     else
@@ -1519,12 +2485,12 @@ void MainWindow::Lista()
                         data.erase(data.length()-1, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                         programa +=   data + ":" + analizador.identificar(data)  + " ";
-                        
+
                         data = "<";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
-                        
+
                         programa +=  data + ":" + analizador.identificar(data)  + " ";
-                        
+
                         data.clear();
                     }
                 }
@@ -1533,12 +2499,12 @@ void MainWindow::Lista()
                         data.erase(data.length()-1, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                         programa +=   data + ":" + analizador.identificar(data)  + " ";
-                        
+
                         data = "<";
-                        
+
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                         programa +=   data + ":" + analizador.identificar(data)  + " ";
-                        
+
                         data.clear();
                     }
 
@@ -1553,7 +2519,7 @@ void MainWindow::Lista()
                         data = "<=";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                         programa +=   data + ":" + analizador.identificar(data)  + " ";
-                     
+
                         data.clear();
                     }
                     else
@@ -1561,7 +2527,7 @@ void MainWindow::Lista()
                         data = "<";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                         programa +=   data + ":" + analizador.identificar(data)  + " ";
-                        
+
                         data.clear();
                     }
                 }
@@ -1570,7 +2536,7 @@ void MainWindow::Lista()
                     data = "<";
                     ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                     programa +=   data + ":" + analizador.identificar(data)  + " ";
-             
+
                     data.clear();
             }
             }
@@ -1587,11 +2553,11 @@ void MainWindow::Lista()
                         data.erase(data.length()-2, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                         programa +=  data + ":" +  analizador.identificar(data)  + " ";
-                
+
                         data = ">=";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                         programa +=   data + ":" + analizador.identificar(data)  + " ";
-                    
+
                         data.clear();
                     }
                     else
@@ -1599,7 +2565,7 @@ void MainWindow::Lista()
                         data.erase(data.length()-1, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                         programa +=   data + ":" + analizador.identificar(data)  + " ";
-                        
+
                         data = ">";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                         programa +=   data + ":" + analizador.identificar(data)  + " ";
@@ -2085,7 +3051,7 @@ void MainWindow::Lista()
                         data.erase(data.length()-1, data.length());
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                         programa +=  data + ":" + analizador.identificar(data)  + " ";
-                        
+
                         data = "-";
                         ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                         programa +=  data + ":" + analizador.identificar(data)  + " ";
@@ -2157,7 +3123,7 @@ void MainWindow::Lista()
                 ui->listWidget->addItem(QString::fromStdString(data) + " : " +QString::fromStdString(analizador.identificar(data)));
                 programa +=  data + ":" + analizador.identificar(data)  + " ";
                 data.clear();
-                
+
             }else
             {
                 data.clear();

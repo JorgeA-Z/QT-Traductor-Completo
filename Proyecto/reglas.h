@@ -74,6 +74,7 @@ public:
     T* getID();
     T* getPC();
     NT* getLisvar();
+    std::string get_val();
 };
 
 class R7: public Nodo

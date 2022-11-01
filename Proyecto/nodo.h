@@ -1,6 +1,6 @@
 #ifndef NODO_H
 #define NODO_H
-
+#include <string>
 
 class Nodo
 {
@@ -12,6 +12,7 @@ public:
     ~Nodo();
     void setReferencia(Nodo*);
     Nodo *getReferencia();
+    virtual std::string get_val();
 
 };
 

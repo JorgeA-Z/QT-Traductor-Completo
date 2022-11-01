@@ -1,6 +1,7 @@
 #ifndef EP_H
 #define EP_H
 #include <string>
+#include "nodo.h"
 class EP
 {
 protected:
@@ -10,6 +11,7 @@ public:
     EP();
     virtual std::string get_val();
     virtual int get_estado();
+    virtual Nodo* getReferencia();
 
 };
 

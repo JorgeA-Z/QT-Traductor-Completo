@@ -23,3 +23,9 @@ Nodo* Nodo::getReferencia()
 {
     return Next;
 };
+std::string Nodo::get_val()
+{
+    std::string out;
+    out = "None";
+    return out;
+}

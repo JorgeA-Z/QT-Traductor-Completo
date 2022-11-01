@@ -68,6 +68,10 @@ NT* R5::getDefFunc()
 //r6
 R6::R6()
 {
+    tipo = nullptr;
+    id = nullptr;
+    listvar = nullptr;
+    pc = nullptr;
 
 };
 R6::R6(T*t, T*i, NT*l, T*p)
@@ -93,7 +97,18 @@ NT* R6::getLisvar()
 {
     return listvar;
 };
-
+std::string R6::get_val()
+{
+    std::string out;
+    out += tipo->get_val();
+    out += " / ";
+    out += id->get_val();
+    out += " / ";
+    out += listvar->get_val();
+    out += " / ";
+    out += pc->get_val();
+    return out;
+};
 //r7
 
 R7::R7()

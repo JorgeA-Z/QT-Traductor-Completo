@@ -4,12 +4,17 @@
 #include "nodo.h"
 class NT: public EP
 {
-protected:
+private:
     Nodo *referencia;
 
 public:
     NT();
-    NT(const int&, const std::string &);
+    NT(const std::string &, Nodo *);
+    void setReferencia(Nodo *);
+    Nodo* getReferencia();
+
+    std::string get_val();
+    void set_val(const std::string &);
 };
 
 #endif // NT_H

@@ -12,3 +12,7 @@ int EP::get_estado()
 {
     return stoi(val);
 };
+Nodo* EP::getReferencia()
+{
+    return nullptr;
+};

@@ -40,6 +40,8 @@ set(PROJECT_SOURCES
         nodo.cpp
         reglas.h
         reglas.cpp
+        arbolsintactico.h
+        arbolsintactico.cpp
         ${TS_FILES}
 )
 
