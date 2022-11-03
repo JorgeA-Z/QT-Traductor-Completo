@@ -12,6 +12,7 @@ public:
     ArbolSintactico(EP*);
     void setRoot(EP*);
     std::string arbol_to_string();
+    std::string Recorrer(Nodo* aux);
 };
 
 #endif // ARBOLSINTACTICO_H

@@ -13,6 +13,7 @@ private:
 public:
     R1();
     R1(NT*);
+    std::string get_val();
     NT* getDefiniciones();
 };
 
@@ -33,7 +34,7 @@ public:
     R3(NT*, NT*);
     NT* getDefiniciones();
     NT* getDefinicion();
-
+    std::string get_val();
 };
 
 class R4: public Nodo
@@ -44,6 +45,7 @@ public:
     R4();
     R4(NT*);
     NT* getDefvar();
+    std::string get_val();
 };
 
 class R5: public Nodo
@@ -54,6 +56,7 @@ public:
     R5();
     R5(NT*);
     NT* getDefFunc();
+    std::string get_val();
 };
 
 class R6: public Nodo
@@ -95,6 +98,7 @@ public:
     T* getComa();
     T* getIdentificador();
     NT* getLisvar();
+    std::string get_val();
 };
 
 class R9: public Nodo
@@ -116,7 +120,7 @@ public:
     T* getparentesisO();
     NT* getparametros();
     NT* getblockfunc();
-
+    std::string get_val();
 };
 
 class R10: public Nodo
@@ -138,7 +142,7 @@ public:
     T* getTipo();
     T* getIdentificador();
     NT* getLisparam();
-
+    std::string get_val();
 };
 
 class R12: public Nodo
@@ -161,6 +165,7 @@ public:
     T* getTipo();
     T* getIdentificador();
     NT* getListaparam();
+    std::string get_val();
 };
 
 class R14: public Nodo
@@ -175,6 +180,7 @@ public:
     T* getParentesisI();
     NT* getDeflocales();
     T* getParentesisO();
+    std::string get_val();
 };
 
 class R15: public Nodo
@@ -193,6 +199,7 @@ public:
     R16(NT*, NT*);
     NT* getDeflocal();
     NT* getDeflocales();
+    std::string get_val();
 };
 
 class R17: public Nodo
@@ -203,6 +210,7 @@ public:
     R17();
     R17(NT*);
     NT* getDefvar();
+    std::string get_val();
 };
 
 class R18: public Nodo
@@ -213,6 +221,7 @@ public:
     R18();
     R18(NT*);
     NT* getSentencia();
+    std::string get_val();
 };
 
 class R19: public Nodo
@@ -230,6 +239,7 @@ public:
     R20(NT*, NT*);
     NT* getSentencia();
     NT* getSentencias();
+    std::string get_val();
 };
 
 class R21: public Nodo
@@ -247,6 +257,7 @@ public:
     T* getIgual();
     NT* getExpresion();
     T* getPc();
+    std::string get_val();
 };
 
 class R22: public Nodo
@@ -267,6 +278,7 @@ public:
     NT* getExpresion();
     NT* getSentencia();
     NT* getOtro();
+    std::string get_val();
 };
 
 class R23: public Nodo
@@ -285,7 +297,7 @@ public:
     NT* getExpresion();
     T* getParentesiso();
     NT* getBloque();
-
+    std::string get_val();
 };
 
 class R24: public Nodo
@@ -301,6 +313,7 @@ public:
     T* getReturn();
     NT* getValorRegresa();
     T* getPc();
+    std::string get_val();
 };
 
 class R25: public Nodo
@@ -311,6 +324,7 @@ public:
     R25();
     R25(NT*);
     NT* getLlamadaFunc();
+    std::string get_val();
 
 };
 
@@ -331,6 +345,7 @@ class R27: public Nodo
         R27(T*, NT*);
         T* getElse();
         NT* getSentenciaBloque();
+        std::string get_val();
 };
 
 class R28: public Nodo
@@ -346,6 +361,7 @@ class R28: public Nodo
         T* getCorcheteAbre();
         NT* getSentencias();
         T* getCorcheteCierre();
+        std::string get_val();
 };
 
 class R29: public Nodo
@@ -366,6 +382,7 @@ class R30: public Nodo
         R30();
         R30(NT*);
         NT* getExpresion();
+        std::string get_val();
 };
 
 class R31: public Nodo
@@ -387,6 +404,7 @@ class R32: public Nodo
         R32(NT*, NT*);
         NT* getExpresion();
         NT* getListaArgumentos();
+        std::string get_val();
 };
 
 class R33: public Nodo
@@ -411,6 +429,8 @@ class R34: public Nodo
         T* getComa();
         NT* getExpresion();
         NT* getListaArgumentos();
+        std::string get_val();
+
 };
 
 class R35: public Nodo
@@ -422,6 +442,7 @@ class R35: public Nodo
         R35();
         R35(NT*);
         NT* getLlamadaFunc();
+        std::string get_val();
 };
 
 class R36: public Nodo
@@ -433,6 +454,7 @@ class R36: public Nodo
         R36();
         R36(T*);
         T* getIdentificador();
+        std::string get_val();
 };
 
 class R37: public Nodo
@@ -444,6 +466,7 @@ class R37: public Nodo
         R37();
         R37(T*);
         T* getEntero();
+        std::string get_val();
 };
 
 class R38: public Nodo
@@ -455,6 +478,7 @@ class R38: public Nodo
         R38();
         R38(T*);
         T* getReal();
+        std::string get_val();
 };
 
 class R39: public Nodo
@@ -466,6 +490,7 @@ class R39: public Nodo
         R39();
         R39(T*);
         T* getCadena();
+        std::string get_val();
 };
 
 class R40: public Nodo
@@ -483,6 +508,7 @@ class R40: public Nodo
         T* getParentesisAbrir();
         NT* getArgumentos();
         T* getParentesisCerrar();
+        std::string get_val();
 };
 
 class R41: public Nodo
@@ -494,6 +520,7 @@ class R41: public Nodo
         R41();
         R41(NT*);
         NT* getSentencia();
+        std::string get_val();
 };
 
 class R42: public Nodo
@@ -505,6 +532,7 @@ class R42: public Nodo
         R42();
         R42(NT*);
         NT* getBloque();
+        std::string get_val();
 };
 
 class R43: public Nodo
@@ -520,6 +548,7 @@ class R43: public Nodo
         T* getParentesisAbrir();
         NT* getExpresion();
         T* getParentesisCerrar();
+        std::string get_val();
 };
 
 class R44: public Nodo
@@ -533,6 +562,7 @@ class R44: public Nodo
         R44(T*, NT*);
         T* getOpSuma();
         NT* getExpresion();
+        std::string get_val();
 };
 
 class R45: public Nodo
@@ -546,6 +576,7 @@ class R45: public Nodo
         R45(T*, NT*);
         T* getOpNot();
         NT* getExpresion();
+        std::string get_val();
 };
 
 class R46: public Nodo
@@ -561,6 +592,7 @@ class R46: public Nodo
         NT* getExpresion1();
         T* getOpMul();
         NT* getExpresion2();
+        std::string get_val();
 };
 
 class R47: public Nodo
@@ -576,6 +608,7 @@ class R47: public Nodo
         NT* getExpresion1();
         T* getOpSuma();
         NT* getExpresion2();
+        std::string get_val();
 };
 
 class R48: public Nodo
@@ -591,6 +624,7 @@ class R48: public Nodo
         NT* getExpresion1();
         T* getOpRelac();
         NT* getExpresion2();
+        std::string get_val();
 };
 
 class R49: public Nodo
@@ -606,6 +640,7 @@ class R49: public Nodo
         NT* getExpresion1();
         T* getOpIgualdad();
         NT* getExpresion2();
+        std::string get_val();
 };
 
 class R50: public Nodo
@@ -621,6 +656,7 @@ class R50: public Nodo
         NT* getExpresion1();
         T* getOpAnd();
         NT* getExpresion2();
+        std::string get_val();
 };
 
 class R51: public Nodo
@@ -636,6 +672,7 @@ class R51: public Nodo
         NT* getExpresion1();
         T* getOpOr();
         NT* getExpresion2();
+        std::string get_val();
 };
 
 class R52: public Nodo
@@ -647,6 +684,7 @@ class R52: public Nodo
         R52();
         R52(T*);
         T* getTermino();
+        std::string get_val();
 };
 
 #endif // REGLAS_H

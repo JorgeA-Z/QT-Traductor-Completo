@@ -2,26 +2,45 @@
 
 Nodo::Nodo()
 {
-    Next = nullptr;
+    izquierda = nullptr;
+    derecha = nullptr;
+    centro = nullptr;
 
-}
-
-Nodo::Nodo(Nodo *n)
-{
-    Next = n;
-};
-Nodo::~Nodo()
-{
 
 };
-void Nodo::setReferencia(Nodo*n)
+Nodo::Nodo(Nodo *i, Nodo*d, Nodo*c)
 {
-    Next = n;
-};
+    izquierda = i;
+    derecha = d;
+    centro = c;
 
-Nodo* Nodo::getReferencia()
+};
+Nodo::~Nodo(){};
+
+void Nodo::setReferenciaIzquierda(Nodo*i)
 {
-    return Next;
+        izquierda = i;
+};
+Nodo* Nodo::getReferenciaIzquierda()
+{
+    return izquierda;
+};
+void Nodo::setReferenciaDerecha(Nodo*d)
+{
+    derecha = d;
+
+};
+Nodo* Nodo::getReferenciaDerecha()
+{
+    return derecha;
+};
+void Nodo::setReferenciaCentro(Nodo*c)
+{
+    centro = c;
+};
+Nodo* Nodo::getReferenciaCentro()
+{
+    return centro;
 };
 std::string Nodo::get_val()
 {

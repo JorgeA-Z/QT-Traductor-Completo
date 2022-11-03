@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QFont>
-#include "arbolsintactico.h""
+#include "arbolsintactico.h"
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -117,23 +117,18 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                     ui->listWidget->addItem(QString::fromStdString(to_string(accion)));
                 }
 
-         //       std::cout << fila << " " << columna << " " << accion <<std::endl;
-
-             //   std::cout << token << " " << tipo << " " << accion <<std::endl;
                 if(accion < 0)
                 {
                     switch(accion)
                     {
                         case -1:
-
-//                        std::cout << "Analisis completado"  <<std::endl;
                         ui->listWidget->addItem("Analisis sintactico completado con satisfaccion");
                         parcing = false;
                         ui->progressBar->setValue(100);
                         ui->progressBar->setStyleSheet("QProgressBar::chunk {background:Green;}");
                         pila.pop();
-                        tree.setRoot(pila.Top());
 
+                        tree.setRoot(pila.Top());
                         i--;
 
                         break;
@@ -894,12 +889,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
         i++;
     }
 
-
-/*
-
-    std::string valor;
-
-*/
+    cout << tree.arbol_to_string() << endl;
 
 };
 void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &fila)
@@ -908,17 +898,18 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
     //T = 0
 
     EP* elemento;
-    T* aux1;
-    T* aux3;
-    T* aux4;
-    T* aux8;
-    NT* aux2;
-    NT* aux7;
-    NT* aux9;
+    T* aux1 = new T();
+    T* aux3 = new T();
+    T* aux4 = new T();
+    T* aux8 = new T();
+    NT* aux2 = new NT();
+    NT* aux7 = new NT();
+    NT* aux9 = new NT();
     EP* aux5;
     EP* aux6;
 
     Nodo* regla;
+    Nodo* conexion;
 
     int PopTokens, i = 0;
 
@@ -940,8 +931,8 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
         regla = new R1(aux2);
         fila = pila.Top()->get_estado();
         elemento = new NT("<programa>", regla);
-        pila.push(elemento);
 
+        pila.push(elemento);
         break;
     case -3:
         regla = new R2();
@@ -2194,10 +2185,9 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
 
         break;
     }
-
     //std::cout << "Se ha popeado: " << i << "Tokens a popear: " << PopTokens << std::endl;
-
 };
+
 void MainWindow::Errores(const int&error)
 {
     ui->listWidget->addItem("Error sintactico, analisis fallido: " + QString::fromStdString(to_string(error)));
@@ -2463,7 +2453,7 @@ void MainWindow::Lista()
         case '<':
             if(data != "<")
             {
-                if(cadena[i + 1] != NULL)
+                if(cadena[i + 1] )
                 {
                     if(cadena[i + 1] == '=')
                     {
@@ -2510,7 +2500,7 @@ void MainWindow::Lista()
 
             }else
             {
-                if(cadena[i + 1] != NULL)
+                if(cadena[i + 1])
                 {
                     if(cadena[i + 1] == '=')
                     {
@@ -2544,7 +2534,7 @@ void MainWindow::Lista()
         case '>':
             if(data != ">")
             {
-                if(cadena[i + 1] != NULL)
+                if(cadena[i + 1])
                 {
                     if(cadena[i + 1] == '=')
                     {
@@ -2585,7 +2575,7 @@ void MainWindow::Lista()
 
             }else
             {
-                if(cadena[i + 1] != NULL)
+                if(cadena[i + 1] )
                 {
                     if(cadena[i + 1] == '=')
                     {
@@ -2616,7 +2606,7 @@ void MainWindow::Lista()
         case '=':
                     if(data != "=")
                     {
-                        if(cadena[i + 1] != NULL)
+                        if(cadena[i + 1] )
                         {
                             if(cadena[i + 1] == '=')
                             {
@@ -2662,7 +2652,7 @@ void MainWindow::Lista()
 
                     }else
                     {
-                        if(cadena[i + 1] != NULL)
+                        if(cadena[i + 1] )
                         {
                             if(cadena[i + 1] == '=')
                             {
@@ -2693,7 +2683,7 @@ void MainWindow::Lista()
         case '|':
             if(data != "|")
             {
-                if(cadena[i + 1] != NULL)
+                if(cadena[i + 1] )
                 {
                     if(cadena[i + 1] == '|')
                     {
@@ -2731,7 +2721,7 @@ void MainWindow::Lista()
 
             }else
             {
-                if(cadena[i + 1] != NULL)
+                if(cadena[i + 1] )
                 {
                     if(cadena[i + 1] == '|')
                     {
@@ -2762,7 +2752,7 @@ void MainWindow::Lista()
         case '&':
                     if(data != "&")
                     {
-                        if(cadena[i + 1] != NULL)
+                        if(cadena[i + 1] )
                         {
                             if(cadena[i + 1] == '&')
                             {
@@ -2808,7 +2798,7 @@ void MainWindow::Lista()
 
                     }else
                     {
-                        if(cadena[i + 1] != NULL)
+                        if(cadena[i + 1] )
                         {
                             if(cadena[i + 1] == '&')
                             {
@@ -2855,7 +2845,7 @@ void MainWindow::Lista()
         case '!':
             if(data != "!")
             {
-                if(cadena[i + 1] != NULL)
+                if(cadena[i + 1] )
                 {
                     if(cadena[i + 1] == '=')
                     {
@@ -2893,7 +2883,7 @@ void MainWindow::Lista()
 
             }else
             {
-                if(cadena[i + 1] != NULL)
+                if(cadena[i + 1] )
                 {
                     if(cadena[i + 1] == '=')
                     {
@@ -2952,7 +2942,7 @@ void MainWindow::Lista()
         case '+':
             if(data != "+")
             {
-                if(cadena[i + 1] != NULL)
+                if(cadena[i + 1] )
                 {
                     if(cadena[i + 1] == '+')
                     {
@@ -2990,7 +2980,7 @@ void MainWindow::Lista()
 
             }else
             {
-                if(cadena[i + 1] != NULL)
+                if(cadena[i + 1] )
                 {
                     if(cadena[i + 1] == '+')
                     {
@@ -3021,7 +3011,7 @@ void MainWindow::Lista()
         case '-':
             if(data != "-")
             {
-                if(cadena[i + 1] != NULL)
+                if(cadena[i + 1] )
                 {
                     if(cadena[i + 1] == '-')
                     {
@@ -3060,7 +3050,7 @@ void MainWindow::Lista()
 
             }else
             {
-                if(cadena[i + 1] != NULL)
+                if(cadena[i + 1] )
                 {
                     if(cadena[i + 1] == '-')
                     {

@@ -4,14 +4,25 @@
 
 class Nodo
 {
-private:
-    Nodo *Next; //Apunta a una R
+protected:
+    Nodo *izquierda; //Apunta a una R
+    Nodo *derecha;
+    Nodo *centro;
+
 public:
     Nodo();
-    Nodo(Nodo *);
+    Nodo(Nodo *, Nodo*, Nodo*);
     ~Nodo();
-    void setReferencia(Nodo*);
-    Nodo *getReferencia();
+
+    virtual void setReferenciaIzquierda(Nodo*);
+    virtual Nodo *getReferenciaIzquierda();
+
+    virtual void setReferenciaDerecha(Nodo*);
+    virtual Nodo *getReferenciaDerecha();
+
+    virtual void setReferenciaCentro(Nodo*);
+    virtual Nodo *getReferenciaCentro();
+
     virtual std::string get_val();
 
 };
