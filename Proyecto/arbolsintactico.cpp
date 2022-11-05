@@ -21,41 +21,76 @@ std::string ArbolSintactico::arbol_to_string()
 
     out += "";
 
-    out += root->get_val();
+    out += root->get_val() + "\n";
 
     aux = root->getReferencia();
 
-    out += Recorrer(aux);
+    out += "---|";
+    out += aux->get_val();
+
+    out += Recorrer(aux, "");
 
     return out;
 };
-std::string ArbolSintactico::Recorrer(Nodo* aux)
+
+std::string ArbolSintactico::Recorrer(Nodo* aux, string espacios)
 {
-    string text;
-    string espacio = "";
+    string text = "";
+    string space = "";
+    space += espacios;
+    Nodo* aux2 = aux;
+    Nodo* temp;
 
-    Nodo* aux2 = aux->getReferenciaCentro();
+    bool c = false;
+    bool d = false;
+    bool i = false;
 
-    while(aux2)
+    while((!c || !d || !i))
     {
-        while(aux2->getReferenciaIzquierda())
+        if(aux2->getReferenciaCentro())
         {
-            espacio += "    ";
-            text += espacio + aux2->getReferenciaIzquierda()->get_val() + espacio +Recorrer(aux2->getReferenciaIzquierda());
-        }
-        while(aux2->getReferenciaCentro())
-        {
-            espacio += "    ";
-            text += espacio + aux2->getReferenciaCentro()->get_val() + espacio + Recorrer(aux2->getReferenciaCentro());
-        }
-        while(aux2->getReferenciaDerecha())
-        {
-            espacio += "    ";
-            text += espacio + aux2->getReferenciaDerecha()->get_val() + espacio +  Recorrer(aux2->getReferenciaDerecha());
-        }
-        text += espacio + aux2->get_val() + espacio;
-    }
+            space += "   ";
+            temp = aux2->getReferenciaCentro();
 
-    espacio = "    ";
+            text += space + temp->getValor() + "\n";
+            text += space + temp->get_val() + "\n";
+            text += Recorrer(temp, space);
+            c = true;
+        }
+        else
+        {
+            c = true;
+        }
+        if(aux2->getReferenciaIzquierda())
+        {
+            space += "   ";
+            temp = aux2->getReferenciaIzquierda();
+
+            text += space + temp->getValor() + "\n";
+            text += space + temp->get_val() + "\n";
+            text += Recorrer(temp, space);
+
+            i = true;
+        }
+        else
+        {
+            i = true;
+        }
+        if(aux2->getReferenciaDerecha())
+        {
+            space += "   ";
+            temp = aux2->getReferenciaDerecha();
+
+            text += space + temp->getValor() + "\n";
+            text += space + temp->get_val() + "\n";
+            text += Recorrer(temp, space);
+
+            d = true;
+        }
+        else
+        {
+            d = true;
+        }
+    }
     return text;
 }

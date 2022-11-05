@@ -38,6 +38,16 @@ void Nodo::setReferenciaCentro(Nodo*c)
 {
     centro = c;
 };
+void Nodo::setValor(std::string s)
+{
+    valor = s;
+};
+
+std::string Nodo::getValor()
+{
+    return valor;
+};
+
 Nodo* Nodo::getReferenciaCentro()
 {
     return centro;

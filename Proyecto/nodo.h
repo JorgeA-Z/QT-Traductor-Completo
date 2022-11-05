@@ -8,6 +8,7 @@ protected:
     Nodo *izquierda; //Apunta a una R
     Nodo *derecha;
     Nodo *centro;
+    std::string valor;
 
 public:
     Nodo();
@@ -24,7 +25,10 @@ public:
     virtual Nodo *getReferenciaCentro();
 
     virtual std::string get_val();
+    void setValor(std::string);
+    std::string getValor();
 
+   // virtual std::string validar();
 };
 
 #endif // NODO_H

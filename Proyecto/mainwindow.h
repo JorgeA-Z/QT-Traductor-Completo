@@ -28,6 +28,8 @@ public:
     void PopPila(const int&, Pila&, const int&, int&);
     void Errores(const int&);
 
+    void RunTree(std::string&);
+
 private slots:
     void Lista();
 private:

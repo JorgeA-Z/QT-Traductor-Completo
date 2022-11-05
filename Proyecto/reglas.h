@@ -641,6 +641,7 @@ class R49: public Nodo
         T* getOpIgualdad();
         NT* getExpresion2();
         std::string get_val();
+
 };
 
 class R50: public Nodo

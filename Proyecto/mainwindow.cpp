@@ -45,6 +45,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
 void MainWindow::RunPila(Pila& pila, std::string& programa)
 {
 
@@ -69,7 +70,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
     int i = 0, j, control, accion, t, p;
     char c;
-    std::string data, tipo, token, aux1, aux2;
+    std::string data, tipo, token, aux1, aux2, semantica;
     bool llave = false, parcing = true;
     while (parcing)
     {
@@ -122,13 +123,21 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                     switch(accion)
                     {
                         case -1:
+                        //Sintactico
                         ui->listWidget->addItem("Analisis sintactico completado con satisfaccion");
                         parcing = false;
                         ui->progressBar->setValue(100);
                         ui->progressBar->setStyleSheet("QProgressBar::chunk {background:Green;}");
-                        pila.pop();
 
+                        //Semantico
+                        pila.pop();
                         tree.setRoot(pila.Top());
+                        semantica = tree.arbol_to_string();
+
+                        RunTree(semantica);
+
+                        ui->listWidget->addItem("Analisis semantico completado con satisfaccion");
+
                         i--;
 
                         break;
@@ -856,7 +865,6 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                     ui->Pila->addItem(QString::fromStdString(pila.GetPila()));
                 }else if ( accion == 0)
                 {
-                    //std::cout << "Error sintactico" <<std::endl;
 
                     Errores(columna);
                     ui->progressBar->setValue(75);
@@ -874,7 +882,6 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                     pila.push(elemento);
 
-                    //std::cout << fila << " " << columna << " " << accion <<std::endl;
                     ui->Pila->addItem(QString::fromStdString(pila.GetPila()));
 
                 }
@@ -889,9 +896,8 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
         i++;
     }
 
-    cout << tree.arbol_to_string() << endl;
-
 };
+
 void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &fila)
 {
     // T = 0 * 2
@@ -907,7 +913,6 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
     NT* aux9 = new NT();
     EP* aux5;
     EP* aux6;
-
     Nodo* regla;
     Nodo* conexion;
 
@@ -967,7 +972,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
             i++;
         }
 
-        regla = new R3(aux2, aux7);
+        regla = new R3(aux7, aux2);
         fila = pila.Top()->get_estado();
         elemento = new NT("<Definiciones>", regla);
         pila.push(elemento);
@@ -1034,7 +1039,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
             i++;
         }
 
-        regla = new R6(aux1, aux3, aux2, aux4);
+        regla = new R6(aux4, aux3, aux2, aux1);
         fila = pila.Top()->get_estado();
         elemento = new NT("<DefVar>", regla);
         pila.push(elemento);
@@ -1090,38 +1095,34 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
         {
             if(i == 1)
             {
-                //Terminal
-                aux1 = new T(pila.Top()->get_val());
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
             }
             if(i == 3)
             {
-                //No terminal
+                //Terminal
                 aux3 = new T(pila.Top()->get_val());
             }
             if(i == 5)
             {
-                aux4 = new T(pila.Top()->get_val());
+                aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
             }
             if(i == 7)
             {
                 aux8 = new T(pila.Top()->get_val());
-
             }
             if(i == 9)
             {
-                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
-
+                aux1 = new T(pila.Top()->get_val());
             }
             if(i == 11)
             {
-                aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
-
+                aux4 = new T(pila.Top()->get_val());
             }
             pila.pop();
             i++;
         }
 
-        regla = new R9(aux1, aux3, aux4, aux8, aux2, aux7);
+        regla = new R9(aux4, aux1, aux8, aux3, aux7, aux2);
         fila = pila.Top()->get_estado();
         elemento = new NT("<DefFunc>", regla);
         pila.push(elemento);
@@ -1149,8 +1150,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
         {
             if(i == 1)
             {
-                //Terminal
-                aux1 = new T(pila.Top()->get_val());
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
             }
             if(i == 3)
             {
@@ -1158,9 +1158,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
             }
             if(i == 5)
             {
-                //No terminal
-                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
-
+                aux1 = new T(pila.Top()->get_val());
             }
 
             pila.pop();
@@ -1191,8 +1189,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
         {
             if(i == 1)
             {
-                //Terminal
-                aux1 = new T(pila.Top()->get_val());
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
             }
             if(i == 3)
             {
@@ -1204,16 +1201,14 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
             }
             if(i == 7)
             {
-                //No terminal
-                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
-
+                aux1 = new T(pila.Top()->get_val());
             }
 
             pila.pop();
             i++;
         }
 
-        regla = new R13(aux1, aux3, aux4, aux2);
+        regla = new R13(aux1, aux4, aux3, aux2);
         fila = pila.Top()->get_estado();
         elemento = new NT("<ListaParam>", regla);
         pila.push(elemento);
@@ -1243,7 +1238,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
             i++;
         }
 
-        regla = new R14(aux1, aux2, aux3);
+        regla = new R14(aux3, aux2, aux1);
         fila = pila.Top()->get_estado();
         elemento = new NT("<BloqFunc>", regla);
         pila.push(elemento);
@@ -1282,7 +1277,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
             i++;
         }
 
-        regla = new R16(aux2, aux7);
+        regla = new R16(aux7, aux2);
         fila = pila.Top()->get_estado();
         elemento = new NT("<DefLocales>", regla);
         pila.push(elemento);
@@ -1294,7 +1289,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
             if(i == 1)
             {
                 //No terminal
-                aux2 = new NT(pila.Top()->get_val(), nullptr);
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
             }
 
 
@@ -1378,14 +1373,11 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
         }
         if(i == 3)
         {
-            //Terminal
-            aux3 = new T(pila.Top()->get_val());
+            aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
         }
         if(i == 5)
         {
-            //No terminal
-            aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
-
+            aux3 = new T(pila.Top()->get_val());
         }
         if(i == 7)
         {
@@ -1397,7 +1389,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
         i++;
     }
 
-    regla = new R21(aux1, aux3, aux2, aux4);
+    regla = new R21(aux4, aux3, aux2, aux1);
     fila = pila.Top()->get_estado();
     elemento = new NT("<Sentencia>", regla);
     pila.push(elemento);
@@ -1410,12 +1402,12 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
         if(i == 1)
         {
             //Terminal
-            aux1 = new T(pila.Top()->get_val());
+            aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
         }
         if(i == 3)
         {
             //Terminal
-            aux3 = new T(pila.Top()->get_val());
+            aux9 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
         }
         if(i == 5)
         {
@@ -1431,13 +1423,13 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
         if(i == 9)
         {
             //No terminal
-            aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+            aux1 = new T(pila.Top()->get_val());
 
         }
         if(i == 11)
         {
             //No terminal
-            aux9 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+            aux3 = new T(pila.Top()->get_val());
 
         }
 
@@ -1445,7 +1437,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
         i++;
     }
 
-    regla = new R22(aux1, aux3, aux4, aux2, aux7, aux9);
+    regla = new R22(aux3, aux1, aux4, aux2, aux9, aux7);
     fila = pila.Top()->get_estado();
     elemento = new NT("<Sentencia>", regla);
     pila.push(elemento);
@@ -1457,7 +1449,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
             if(i == 1)
             {
                 //Terminal
-                aux1 = new T(pila.Top()->get_val());
+                aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
             }
             if(i == 3)
             {
@@ -1478,7 +1470,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
             if(i == 9)
             {
                 //No terminal
-                aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+                aux1 = new T(pila.Top()->get_val());
 
             }
 
@@ -1486,7 +1478,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
             i++;
         }
 
-        regla = new R23(aux1, aux3, aux2, aux4, aux7);
+        regla = new R23(aux1, aux4, aux2, aux3, aux7);
         fila = pila.Top()->get_estado();
         elemento = new NT("<Sentencia>", regla);
         pila.push(elemento);
@@ -1516,7 +1508,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
             i++;
         }
 
-        regla = new R24(aux1, aux2, aux3);
+        regla = new R24(aux3, aux2, aux1);
         fila = pila.Top()->get_estado();
         elemento = new NT("<Sentencia>", regla);
         pila.push(elemento);
@@ -1526,6 +1518,12 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
         while(i < PopTokens)
         {
             if(i == 1)
+            {
+                //No terminal
+                aux1 = new T(pila.Top()->get_val());
+
+            }
+            if(i == 3)
             {
                 //No terminal
                 aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
@@ -1558,12 +1556,12 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
     case -28:
         while(i < PopTokens)
         {
-            if(i == 1)
+            if(i == 3)
             {
                 //Terminal
                 aux1 = new T(pila.Top()->get_val());
             }
-            if(i == 3)
+            if(i == 1)
             {
                 //No terminal
                 aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
@@ -1604,7 +1602,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
             i++;
         }
 
-        regla = new R28(aux1, aux2, aux3);
+        regla = new R28(aux3, aux2, aux1);
         fila = pila.Top()->get_estado();
         elemento = new NT("<Bloque>", regla);
         pila.push(elemento);
@@ -1678,7 +1676,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
             i++;
         }
 
-        regla = new R32(aux2, aux7);
+        regla = new R32(aux7, aux2);
         fila = pila.Top()->get_estado();
         elemento = new NT("<Argumentos>", regla);
         pila.push(elemento);
@@ -1703,20 +1701,15 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
         {
             if(i == 1)
             {
-                //Terminal
-                aux1 = new T(pila.Top()->get_val());
+                aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
             }
             if(i == 3)
             {
-                //No terminal
                 aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
-
             }
             if(i == 5)
             {
-                //No terminal
-                aux7 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
-
+                aux1 = new T(pila.Top()->get_val());
             }
 
             pila.pop();
@@ -1830,24 +1823,20 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
         {
             if(i == 1)
             {
-                //Terminal
-                aux1 = new T(pila.Top()->get_val());
+                aux4 = new T(pila.Top()->get_val());
             }
             if(i == 3)
             {
-                //Terminal
-                aux3 = new T(pila.Top()->get_val());
+                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
             }
             if(i == 5)
             {
-                //No terminal
-                aux2 = new NT(pila.Top()->get_val(), pila.Top()->getReferencia());
+                aux3 = new T(pila.Top()->get_val());
 
             }
             if(i == 7)
             {
-                //Terminal
-                aux4 = new T(pila.Top()->get_val());
+                aux1 = new T(pila.Top()->get_val());
             }
 
             pila.pop();
@@ -1924,7 +1913,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
             i++;
         }
 
-        regla = new R43(aux1, aux2, aux3);
+        regla = new R43(aux3, aux2, aux1);
         fila = pila.Top()->get_estado();
         elemento = new NT("<Expresion>", regla);
         pila.push(elemento);
@@ -2185,7 +2174,35 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
 
         break;
     }
-    //std::cout << "Se ha popeado: " << i << "Tokens a popear: " << PopTokens << std::endl;
+
+};
+
+void MainWindow::RunTree(std::string&Stree)
+{
+    int i = 0;
+    char c;
+
+    std::string data;
+    cout << Stree << endl;
+    while(i< Stree.length())
+    {
+        c = Stree[i];
+
+        switch(c)
+        {
+
+        case '\n':
+            ui->Arbol->addItem(QString::fromStdString(data));
+            data.clear();
+            break;
+
+        }
+        data+=c;
+
+        i++;
+
+    }
+
 };
 
 void MainWindow::Errores(const int&error)
@@ -2228,6 +2245,7 @@ void MainWindow::Lista()
 
     ui->listWidget->clear();
     ui->Pila->clear();
+    ui->Arbol->clear();
     ui->progressBar->setValue(25);
 
     while (i < cadena.length())
