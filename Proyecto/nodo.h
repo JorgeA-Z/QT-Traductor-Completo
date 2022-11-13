@@ -10,6 +10,10 @@ protected:
     Nodo *centro;
     std::string valor;
 
+    std::string tipoD;
+
+    std::string ambito;
+
 public:
     Nodo();
     Nodo(Nodo *, Nodo*, Nodo*);
@@ -25,6 +29,9 @@ public:
     virtual Nodo *getReferenciaCentro();
 
     virtual std::string get_val();
+
+    virtual void validar();
+
     void setValor(std::string);
     std::string getValor();
 

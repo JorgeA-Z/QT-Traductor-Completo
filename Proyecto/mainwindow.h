@@ -9,7 +9,7 @@
 #include "reglas.h"
 #include <QMainWindow>
 #include "nodo.h"
-
+#include "semantico.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE

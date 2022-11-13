@@ -94,3 +94,8 @@ std::string ArbolSintactico::Recorrer(Nodo* aux, string espacios)
     }
     return text;
 }
+
+void ArbolSintactico::analiza()
+{
+    root->getReferencia()->validar();
+};

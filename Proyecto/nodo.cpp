@@ -1,4 +1,6 @@
 #include "nodo.h"
+#include <iostream>
+using namespace std;
 
 Nodo::Nodo()
 {
@@ -57,4 +59,26 @@ std::string Nodo::get_val()
     std::string out;
     out = "None";
     return out;
-}
+};
+void Nodo::validar()
+{
+    tipoD = "v";
+    if(izquierda != nullptr )
+    {
+        izquierda->validar();
+
+    }
+
+    if(centro != nullptr )
+    {
+        centro->validar();
+    }
+
+    if(derecha != nullptr )
+    {
+        derecha->validar();
+    }
+
+    cout << tipoD << endl;
+
+};

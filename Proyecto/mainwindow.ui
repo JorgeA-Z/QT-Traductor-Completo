@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>874</width>
+    <width>1096</width>
     <height>475</height>
    </rect>
   </property>
@@ -173,10 +173,10 @@ border: 2px solid rgb(141,182,205);</string>
    <widget class="QListWidget" name="Arbol">
     <property name="geometry">
      <rect>
-      <x>580</x>
-      <y>190</y>
-      <width>281</width>
-      <height>261</height>
+      <x>870</x>
+      <y>20</y>
+      <width>211</width>
+      <height>431</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -187,8 +187,8 @@ border: 2px solid rgb(141,182,205);</string>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>790</x>
-      <y>190</y>
+      <x>1010</x>
+      <y>20</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -204,6 +204,40 @@ border: 2px solid rgb(141,182,205);</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QListWidget" name="TablaS">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>190</y>
+      <width>281</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);
+border: 2px solid rgb(141,182,205);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>190</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #FFF;
+border: 2px solid rgb(141,182,205);</string>
+    </property>
+    <property name="text">
+     <string>Tabsim</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
    <zorder>Pila</zorder>
    <zorder>textEdit</zorder>
    <zorder>pushButton</zorder>
@@ -214,6 +248,8 @@ border: 2px solid rgb(141,182,205);</string>
    <zorder>label_3</zorder>
    <zorder>Arbol</zorder>
    <zorder>label_4</zorder>
+   <zorder>TablaS</zorder>
+   <zorder>label_5</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="contextMenuPolicy">

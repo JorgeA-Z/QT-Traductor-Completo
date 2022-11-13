@@ -53,7 +53,9 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
     EP* elemento;
 
-    ArbolSintactico tree;
+    ArbolSintactico *tree;
+
+    Semantico analizador;
 
     int fila, columna;
     elemento = new T("$");
@@ -131,10 +133,17 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         //Semantico
                         pila.pop();
-                        tree.setRoot(pila.Top());
-                        semantica = tree.arbol_to_string();
+                        tree = new ArbolSintactico();
+
+                        tree->setRoot(pila.Top());
+
+                        semantica = tree->arbol_to_string();
 
                         RunTree(semantica);
+
+                        analizador.SetTree(tree);
+
+                        analizador.validarSentencias();
 
                         ui->listWidget->addItem("Analisis semantico completado con satisfaccion");
 
@@ -915,6 +924,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
     EP* aux6;
     Nodo* regla;
     Nodo* conexion;
+    Nodo* terminales;
 
     int PopTokens, i = 0;
 
@@ -1757,7 +1767,9 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
 
         regla = new R36(aux1);
         fila = pila.Top()->get_estado();
-        elemento = new NT("<Termino>", regla);
+
+        elemento = new NT("<Termino> -> " + regla->get_val(), regla);
+
         pila.push(elemento);
 
         break;
@@ -1776,7 +1788,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
 
         regla = new R37(aux1);
         fila = pila.Top()->get_estado();
-        elemento = new NT("<Termino>", regla);
+        elemento = new NT("<Termino> -> " + regla->get_val(), regla);
         pila.push(elemento);
 
         break;
@@ -1795,7 +1807,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
 
         regla = new R38(aux1);
         fila = pila.Top()->get_estado();
-        elemento = new NT("<Termino>", regla);
+        elemento = new NT("<Termino> -> " + regla->get_val(), regla);
         pila.push(elemento);
 
         break;
@@ -1814,7 +1826,7 @@ void MainWindow::PopPila(const int&tokens, Pila& pila, const int &idregla, int &
 
         regla = new R39(aux1);
         fila = pila.Top()->get_estado();
-        elemento = new NT("<Termino>", regla);
+        elemento = new NT("<Termino> -> " + regla->get_val(), regla);
         pila.push(elemento);
 
         break;

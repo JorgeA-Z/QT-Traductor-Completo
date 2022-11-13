@@ -13,6 +13,7 @@ public:
     void setRoot(EP*);
     std::string arbol_to_string();
     std::string Recorrer(Nodo* aux, std::string espacios);
+    void analiza();
 };
 
 #endif // ARBOLSINTACTICO_H

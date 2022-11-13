@@ -19,6 +19,7 @@ Nodo* NT::getReferencia()
 };
 std::string NT::get_val()
 {
+
     return val;
 };
 void NT::set_val(const std::string &data)

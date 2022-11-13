@@ -1,5 +1,6 @@
 #include "reglas.h"
-
+#include <iostream>
+using namespace std;
 
 //r1
 
@@ -137,6 +138,46 @@ std::string R6::get_val()
     out += pc->get_val();
     return out;
 };
+
+void R6::validar()
+{
+    if(tipo->get_val() == " int")
+    {
+        tipoD = "i";
+    }
+
+    if(tipo->get_val() == " float")
+    {
+        tipoD = "f";
+
+    }
+
+    if(tipo->get_val() == " char")
+    {
+        tipoD = "c";
+
+    }
+
+    if(tipo->get_val() == " void")
+    {
+        tipoD = "v";
+
+    }
+
+    if(tipo->get_val() == " double")
+    {
+        tipoD = "d";
+
+    }
+
+    cout << tipoD << endl;
+
+    if(centro != nullptr )
+    {
+        centro->validar();
+    }
+
+}
 //r7
 
 R7::R7()
@@ -1160,6 +1201,20 @@ std::string R49::get_val()
     return expresion1->get_val() + " " + opIgualdad->get_val() + " " + expresion2->get_val();
 };
 
+void R49::validar()
+{
+
+    if(izquierda != nullptr )
+    {
+        centro->validar();
+    }
+
+
+    if(derecha != nullptr )
+    {
+        centro->validar();
+    }
+}
 //R50
 R50::R50()
 {

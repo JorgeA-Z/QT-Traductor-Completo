@@ -78,6 +78,7 @@ public:
     T* getPC();
     NT* getLisvar();
     std::string get_val();
+    void validar();
 };
 
 class R7: public Nodo
@@ -641,7 +642,7 @@ class R49: public Nodo
         T* getOpIgualdad();
         NT* getExpresion2();
         std::string get_val();
-
+        void validar();
 };
 
 class R50: public Nodo

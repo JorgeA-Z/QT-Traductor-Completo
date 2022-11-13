@@ -42,6 +42,12 @@ set(PROJECT_SOURCES
         reglas.cpp
         arbolsintactico.h
         arbolsintactico.cpp
+        semantico.h
+        semantico.cpp
+        tabsim.h
+        tabsim.cpp
+        simbolo.h
+        simbolo.cpp
         ${TS_FILES}
 )
 
