@@ -82,3 +82,27 @@ void Nodo::validar()
     cout << tipoD << endl;
 
 };
+T* Nodo::getTipo()
+{
+    return nullptr;
+};
+T* Nodo::getID()
+{
+    return nullptr;
+};
+T* Nodo::getPC()
+{
+    return nullptr;
+};
+T* Nodo::gettipo()
+{
+    return nullptr;
+};
+T* Nodo::getidentificador()
+{
+    return nullptr;
+};
+T* Nodo::getIdentificador()
+{
+    return nullptr;
+};

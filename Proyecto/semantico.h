@@ -13,8 +13,12 @@ private:
 public:
     Semantico();
     Semantico(ArbolSintactico *a);
-    void validarSentencias();
+    std::string ImprimirTabla();
+    void GenerarTabla();
     void SetTree(ArbolSintactico *a);
+    void validarCasteo(std::string& e);
+    void validarUso();
+    void validarExpresiones();
 
 };
 

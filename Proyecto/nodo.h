@@ -2,6 +2,8 @@
 #define NODO_H
 #include <string>
 
+class T;
+
 class Nodo
 {
 protected:
@@ -31,6 +33,15 @@ public:
     virtual std::string get_val();
 
     virtual void validar();
+
+    virtual T* getTipo();
+    virtual T* getID();
+    virtual T* getPC();
+
+    virtual T* gettipo();
+    virtual T* getidentificador();
+
+    virtual T* getIdentificador();
 
     void setValor(std::string);
     std::string getValor();

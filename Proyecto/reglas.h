@@ -1,9 +1,7 @@
 #ifndef REGLAS_H
 #define REGLAS_H
-#include "nodo.h"
 #include "nt.h"
 #include "t.h"
-
 class R1: public Nodo
 {
 

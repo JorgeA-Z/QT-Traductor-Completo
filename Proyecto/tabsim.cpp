@@ -1,4 +1,5 @@
 #include "tabsim.h"
+#include <iostream>
 using namespace std;
 
 Tabsim::nodo::nodo()
@@ -127,7 +128,175 @@ string Tabsim::getTabla()
 
     return data;
 };
-void Tabsim::generarTabla(ArbolSintactico*arbol)
+
+std::string Tabsim::datatype(std::string d)
 {
-    arbol->analiza();
+    char c;
+    int i = 1;
+
+    while(i < d.length())
+    {
+        c = d[i];
+
+        switch(c)
+        {
+
+        case '.':
+
+            if(d.substr(i, d.length()).length() > 14 )
+            {
+                return "d";
+
+            }else
+            {
+                return "f";
+            }
+
+        }
+        i++;
+    }
+
+    return "i";
+
+};
+
+bool Tabsim::searchCast(std::string expresion1, std::string expresion2)
+{
+    if (head == NULL)
+    {
+
+
+        return false;
+    }
+    nodo *temp;
+    int index = 0;
+    temp = head;
+
+    //Aqui validar las cosas
+
+
+    while (temp->getVal().getId() != expresion1)
+    {
+        index++;
+        temp = temp->getReferencia();
+        if (temp == NULL)
+        {
+            return false;
+        }
+
+    }
+
+    if(temp->getVal().getId() == expresion1)
+    {
+
+        if(temp->getVal().getTipo() == " int")
+        {
+            if(datatype(expresion2) == "i")
+            {
+                cout << temp->getVal().getTipo() << expresion2 << endl;
+                return true;
+            }
+
+        }
+
+        if(temp->getVal().getTipo() == " float")
+        {
+
+            if(datatype(expresion2) == "f")
+            {
+                cout << temp->getVal().getTipo() << expresion2 << endl;
+                return true;
+            }
+        }
+
+        if(temp->getVal().getTipo() == " double")
+        {
+            if(datatype(expresion2) == "d" or datatype(expresion2) == "f")
+            {
+                cout << temp->getVal().getTipo() << expresion2 << endl;
+                return true;
+            }
+        }
+    }
+
+    return false;
+};
+
+
+bool Tabsim::searchExist(std::string expresion1)
+{
+    if (head == NULL)
+    {
+
+        return false;
+    }
+    nodo *temp;
+    int index = 0;
+    temp = head;
+
+    //Aqui validar las cosas
+
+    while (temp->getVal().getId() !=  " " + expresion1)
+    {
+        index++;
+        temp = temp->getReferencia();
+        if (temp == NULL)
+        {
+            return false;
+        }
+    }
+
+    return true;
+};
+
+bool Tabsim::searchType(std::string expresion1, std::string expresion2)
+{
+    if (head == NULL)
+    {
+
+        return false;
+    }
+
+    nodo *temp;
+
+    nodo *temp1;
+
+    int index = 0;
+    temp = head;
+
+    //Aqui validar las cosas
+
+    while (temp->getVal().getId() != expresion1)
+    {
+        index++;
+        temp = temp->getReferencia();
+        if (temp == NULL)
+        {
+            return false;
+        }
+    }
+
+    index = 0;
+
+    temp1 = head;
+
+    //Aqui validar las cosas
+
+    while (temp1->getVal().getId() !=  expresion2)
+    {
+        index++;
+        temp1 = temp1->getReferencia();
+        if (temp1 == NULL)
+        {
+            return false;
+        }
+    }
+
+    if(temp->getVal().getTipo() == temp1->getVal().getTipo())
+    {
+        return true;
+    }
+
+    return false;
+
 };

@@ -72,7 +72,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
     int i = 0, j, control, accion, t, p;
     char c;
-    std::string data, tipo, token, aux1, aux2, semantica;
+    std::string data, tipo, token, aux1, aux2, semantica, erroresS;
     bool llave = false, parcing = true;
     while (parcing)
     {
@@ -126,7 +126,7 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
                     {
                         case -1:
                         //Sintactico
-                        ui->listWidget->addItem("Analisis sintactico completado con satisfaccion");
+
                         parcing = false;
                         ui->progressBar->setValue(100);
                         ui->progressBar->setStyleSheet("QProgressBar::chunk {background:Green;}");
@@ -143,9 +143,18 @@ void MainWindow::RunPila(Pila& pila, std::string& programa)
 
                         analizador.SetTree(tree);
 
-                        analizador.validarSentencias();
+                        analizador.GenerarTabla();
 
-                        ui->listWidget->addItem("Analisis semantico completado con satisfaccion");
+                        analizador.validarCasteo(erroresS);
+
+                        if(erroresS.length() != 0)
+                        {
+                            ui->progressBar->setValue(75);
+                            ui->progressBar->setStyleSheet("QProgressBar::chunk {background:Red;}");
+                        }
+                        ui->listWidget->addItem(QString::fromStdString(erroresS));
+
+                        ui->TablaS->addItem(QString::fromStdString(analizador.ImprimirTabla()));
 
                         i--;
 
@@ -2258,6 +2267,7 @@ void MainWindow::Lista()
     ui->listWidget->clear();
     ui->Pila->clear();
     ui->Arbol->clear();
+    ui->TablaS->clear();
     ui->progressBar->setValue(25);
 
     while (i < cadena.length())

@@ -20,6 +20,8 @@ private:
 
         Simbolo getVal();
         nodo* getReferencia();
+
+
         //nodo &operator=(const nodo &);
     };
 
@@ -33,8 +35,31 @@ public:
     void insertTail(Simbolo v);
     void deleteHead();
     void deleteTail();
-    void generarTabla(ArbolSintactico*);
+
+    std::string datatype(std::string d);
+
+    bool searchCast(std::string expresion1, std::string expresion2);
+
+    bool searchExist(std::string expresion1);
+
+    bool searchType(std::string expresion1, std::string expresion2);
+
     std::string getTabla();
+
+    class Exeption : public std::exception
+    {
+    private:
+        std::string msg;
+
+    public:
+        explicit Exeption(const char *message) : msg(message) {}
+        explicit Exeption(const std::string &message) : msg(message) {}
+        virtual ~Exeption() throw() {}
+        virtual const char *what() const throw()
+        {
+            return msg.c_str();
+        }
+    };
 };
 
 #endif // TABSIM_H
