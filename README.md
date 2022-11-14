@@ -36,3 +36,4 @@ A su vez, la siguiente tabla de transiciones o grámatica, fue utilizada para la
 ![image](https://user-images.githubusercontent.com/74442427/194086637-18b465f0-0340-46f2-bba9-6afe0cc30b52.png)
 
 ## Traductor Semantico
+![image](https://github.com/JorgeA-Z/QT-Traductor-Completo/blob/main/Modulo%202/Código%20fuente/Imagenes/Semantico.png)
