@@ -36,4 +36,7 @@ A su vez, la siguiente tabla de transiciones o grámatica, fue utilizada para la
 ![image](https://user-images.githubusercontent.com/74442427/194086637-18b465f0-0340-46f2-bba9-6afe0cc30b52.png)
 
 ## Traductor Semantico
+Para la fase del analizador semantico, fue necesaria el presentar el arbol de construcción sintactica, así como la pila mostrando todas las reglas gramaticales, junto con las reducciones y desplazamientos.
+En base a la pila, se enlazaron los nodos de forma que se fuera generando dicho arbol, siendo que para validar semanticamente cada expresión, solo hubo que recorrer este arbol, junto con la generación de una tabla de simbolos que agilizara el proceso de búsqueda de variables y funciones.
+
 ![image](https://github.com/JorgeA-Z/QT-Traductor-Completo/blob/main/Modulo%202/Código%20fuente/Imagenes/Semantico.png)
