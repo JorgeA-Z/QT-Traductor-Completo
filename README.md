@@ -34,3 +34,5 @@ Las siguientes reglas fueron utilizadas para desarrollar el analizador sintactic
 
 A su vez, la siguiente tabla de transiciones o grámatica, fue utilizada para la realización del algoritmo LR(1) de nuestro analizador sintactico.
 ![image](https://user-images.githubusercontent.com/74442427/194086637-18b465f0-0340-46f2-bba9-6afe0cc30b52.png)
+
+## Traductor Semantico
