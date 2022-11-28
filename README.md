@@ -15,6 +15,8 @@ La interfaz contiene una caja de texto en donde se pueden listar los tokens a an
 
 ![alt text](https://github.com/JorgeA-Z/QT-Traductor-Completo/blob/main/Modulo%201/Codigo%20fuente/Imagenes/Interfaz.png)
 
+[Modulo 1](https://github.com/JorgeA-Z/QT-Traductor-Completo/tree/main/Modulo%201)
+
 ###### Maquina de estados utilizada para el desarrollo de la aplicación
 
 ![alt text](https://github.com/JorgeA-Z/QT-Traductor-Completo/blob/main/Modulo%201/Codigo%20fuente/Imagenes/Máquina%20de%20estados.jpeg)
@@ -35,8 +37,12 @@ Las siguientes reglas fueron utilizadas para desarrollar el analizador sintactic
 A su vez, la siguiente tabla de transiciones o grámatica, fue utilizada para la realización del algoritmo LR(1) de nuestro analizador sintactico.
 ![image](https://user-images.githubusercontent.com/74442427/194086637-18b465f0-0340-46f2-bba9-6afe0cc30b52.png)
 
+[Modulo 2](https://github.com/JorgeA-Z/QT-Traductor-Completo/tree/main/Modulo%202)
+
 ## Modulo 3: Traductor Semantico
 Para la fase del analizador semantico, fue necesaria el presentar el arbol de construcción sintactica, así como la pila mostrando todas las reglas gramaticales, junto con las reducciones y desplazamientos.
 En base a la pila, se enlazaron los nodos de forma que se fuera generando dicho arbol, siendo que para validar semanticamente cada expresión, solo hubo que recorrer este arbol, junto con la generación de una tabla de simbolos que agilizara el proceso de búsqueda de variables y funciones.
 
 ![image](https://github.com/JorgeA-Z/QT-Traductor-Completo/blob/main/Modulo%202/Código%20fuente/Imagenes/Semantico.png)
+
+[Modulo 3](https://github.com/JorgeA-Z/QT-Traductor-Completo/tree/main/Modulo%203)
