@@ -8,7 +8,7 @@ El programa está en fase de despliege con las librerías básicas contenidas en
 
 La aplicación inicialmente fué desarrollada con Python pero, después de contemplar las limitaciónes en cuanto a la arquitectura del mismo, siendo que python es un lenguaje interpretado y no compilado, se decidió que el desarrollo se realizaría con C++ Utilizando la librería gráfica QT.
 
-## Traductir morfológico
+## Modulo 1: Traductir morfológico
 
 ###### Interfaz
 La interfaz contiene una caja de texto en donde se pueden listar los tokens a analizar, comprobando si pertenecen a la máquina de estados planteada para el analizador léxico.
@@ -19,7 +19,7 @@ La interfaz contiene una caja de texto en donde se pueden listar los tokens a an
 
 ![alt text](https://github.com/JorgeA-Z/QT-Traductor-Completo/blob/main/Modulo%201/Codigo%20fuente/Imagenes/Máquina%20de%20estados.jpeg)
 
-## Traductor sintactico
+## Modulo 2: Traductor sintactico
 ###### Interfaz
 Para el módulo 2, se hicieron modificaciones respecto al analizador morfologioco, siendo que ahora es posible escribir en una caja de texto sin limitación, simulando un IDE de un lenguaje de programación.
 A su vez, se agregó una pequeña consola que irá detallando las reglas gramaticales que hayan sido utilizadas para la realización de las reducciónes y los desplazamientos en la tabla de transisiones.
@@ -35,7 +35,7 @@ Las siguientes reglas fueron utilizadas para desarrollar el analizador sintactic
 A su vez, la siguiente tabla de transiciones o grámatica, fue utilizada para la realización del algoritmo LR(1) de nuestro analizador sintactico.
 ![image](https://user-images.githubusercontent.com/74442427/194086637-18b465f0-0340-46f2-bba9-6afe0cc30b52.png)
 
-## Traductor Semantico
+## Modulo 3: Traductor Semantico
 Para la fase del analizador semantico, fue necesaria el presentar el arbol de construcción sintactica, así como la pila mostrando todas las reglas gramaticales, junto con las reducciones y desplazamientos.
 En base a la pila, se enlazaron los nodos de forma que se fuera generando dicho arbol, siendo que para validar semanticamente cada expresión, solo hubo que recorrer este arbol, junto con la generación de una tabla de simbolos que agilizara el proceso de búsqueda de variables y funciones.
 
