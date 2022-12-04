@@ -52,3 +52,10 @@ En base a la pila, se enlazaron los nodos de forma que se fuera generando dicho 
 ###### Link a la carpeta dentro del repositorio
 
 [Modulo 3](https://github.com/JorgeA-Z/QT-Traductor-Completo/tree/main/Modulo%203)
+
+
+## Modulo 4: Código objeto
+###### Interfaz
+Para el último módulo se realizó una calculadora cientifica con las funciones que se pueden apreciar en la captura. Esta calculadora utiliza las instrucciones embebidas de la arquitectura x86 de Intel, siendo que se inyectan con funciones en ensamblador volatiles dentro del código de C++.
+
+arquitectónicamente hablando, la calculadora funciona con un automata de estados finitos (que no mostraremos) que permite la asimilación de todos los componentes lexicos, sintacticos y semanticos de las operaciones matemáticas. Búscando que la jerarquia de operaciones se cumpla en todos los casos aparentes.
