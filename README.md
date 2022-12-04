@@ -57,6 +57,22 @@ En base a la pila, se enlazaron los nodos de forma que se fuera generando dicho 
 ## Modulo 4: Código objeto
 ###### Interfaz
 ![image](https://github.com/JorgeA-Z/QT-Traductor-Completo/blob/main/Modulo%204/Calculadora/Imagen.jpg)
+
+
 Para el último módulo se realizó una calculadora cientifica con las funciones que se pueden apreciar en la captura. Esta calculadora utiliza las instrucciones embebidas de la arquitectura x86 de Intel, siendo que se inyectan con funciones en ensamblador volatiles dentro del código de C++.
 
-arquitectónicamente hablando, la calculadora funciona con un automata de estados finitos (que no mostraremos) que permite la asimilación de todos los componentes lexicos, sintacticos y semanticos de las operaciones matemáticas. Búscando que la jerarquia de operaciones se cumpla en todos los casos aparentes.
+Arquitectónicamente hablando, la calculadora funciona con un automata de estados finitos (que no mostraremos) que permite la asimilación de todos los componentes lexicos, sintacticos y semanticos de las operaciones matemáticas. Búscando que la jerarquia de operaciones se cumpla en todos los casos aparentes, así como funciones volatiles en ensamblador que realizarán las operaciones correspondientes.
+
+```c++
+float MainWindow::ASM_SUM(float $a, float $b)
+{
+    float $result;
+    __asm__ __volatile__ (
+        "fld %1;"
+        "fld %2;"
+        "faddp;"
+        "fstp %0;" : "=m" ($result) : "g"($a) , "g"($b)
+    );
+    return $result ;
+}
+```
