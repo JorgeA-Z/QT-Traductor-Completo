@@ -63,6 +63,7 @@ Para el último módulo se realizó una calculadora cientifica con las funciones
 
 Arquitectónicamente hablando, la calculadora funciona con un automata de estados finitos (que no mostraremos) que permite la asimilación de todos los componentes lexicos, sintacticos y semanticos de las operaciones matemáticas. Búscando que la jerarquia de operaciones se cumpla en todos los casos aparentes, así como funciones volatiles en ensamblador que realizarán las operaciones correspondientes.
 
+###### Ejemplo de instrucción en ensamblador
 ```c++
 float MainWindow::ASM_SUM(float $a, float $b)
 {
